@@ -101,7 +101,52 @@ export default Ember.Component.extend({
    * @default 'L'
    * @public
    */
-  buttonDateFormat: 'L',
+  buttonDateFormat: 'Y/m/d',
+  titleDateFormat: 'm-Y',
+  
+  pad(val) {
+    if((val + '').length < 2)
+      return '0' + val;
+    return '' + val;
+  },
+
+  formatDate(date, format) {
+    var mapFormat [
+      'y': function(date){
+        return (date.getFullYear() + '').substring(2, 4);
+      },
+
+      'Y': function(date){
+        return (date.getFullYear() + '');
+      },
+
+      'd': function(date){
+        return this.pad(date.getDate());
+      },
+
+      'm': function(date){
+        return this.pad(date.getMonth() + 1);
+      }
+    ];
+
+    var seprator = format.match(/[\/\.\-]/);
+    var parts = format.split(/[\/\.\-]/);
+    var result = [];
+
+    if(seprator.length != 1)
+      throw new Error('Non supported format');
+
+    for(var i = 0; i < parts; i++)
+    {
+      var part = mapFormat[parts[i]];
+      if(!part)
+        throw new Error('Non supported format');
+
+      result.push(part(date));
+    }
+
+    return result.join(seprator[0]);
+  },
 
   /**
    * If custom options should be displayed.
@@ -206,14 +251,21 @@ export default Ember.Component.extend({
       if (!dateFrom) {
         return get(this, 'placeholder');
       }
-      return dateFrom.format(dateFormat);
+      return this.formatDate(dateFrom, dateFormat);//dateFrom.format(dateFormat);
     }
 
     if (!dateFrom) {
       return get(this, 'placeholder');
     }
 
-    return dateFrom.format(dateFormat);
+    return this.formatDate(dateForm, dateFormat);//dateFrom.format(dateFormat);
+  }),
+
+  titleText: computed('currentMonth', 'titleDateFormat', function() {
+    let currentMonth = get(this, 'currentMonth');
+    let dateFormat = get(this, 'titleDateFormat');
+    
+    return this.formatDate(currentMonth, dateFormat);
   }),
 
   /**
@@ -228,7 +280,7 @@ export default Ember.Component.extend({
    */
   buttonToText: computed('range', '_dates.[]', function() {
     let vals = get(this, '_dates') || Ember.A([]);
-    let dateFormat = get(this, 'buttonDateFormat');
+    //let dateFormat = get(this, 'buttonDateFormat');
 
     let [,dateTo] = vals;
 
@@ -236,7 +288,7 @@ export default Ember.Component.extend({
       return get(this, 'placeholder');
     }
 
-    return dateTo.format(dateFormat);
+    return this.formatDate(dateTo, dateFormat);//dateTo.format(dateFormat);
   }),
 
   /**

@@ -14,7 +14,7 @@
       <button
         data-test="day-{{date.month}}-{{date.day}}"
         disabled={{date.disabled}}
-        class={{date-picker-day-classes 'date-picker__day' isDisabled=date.disabled isInRange=date.inRange isToday=(is-equal-day date.date today) isSelected=(is-equal-day date.date selectedDates)}}
+        class="date.disabled:date-picker__day--disabled date.inRange:date-picker__day--in-range date.isToday:date-picker__day--today date.isSelected:date-picker__day--selected"
         {{action 'selectDate' date.date}}>
         {{date.day}}
       </button>

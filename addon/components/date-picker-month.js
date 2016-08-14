@@ -116,7 +116,17 @@ export default Ember.Component.extend({
    */
   currentMonth: computed('month', function() {
     let date = get(this, 'month');
-    return date ? date.clone().startOf('month') : moment().startOf('month');
+    let now  = new Date();
+    if(date)
+    {
+      return new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0);
+    }
+    //getFullYear 2016;
+    //getMonth 0 - 11
+    //getDate 1 - 31
+
+    return new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
+    //return date ? date.clone().startOf('month') : moment().startOf('month');
   }),
 
   /**
@@ -146,33 +156,39 @@ export default Ember.Component.extend({
    * @private
    */
   _daysInMonth: computed('currentMonth', function() {
-    let currentMonth = get(this, 'currentMonth');
-    let daysInMonth = currentMonth.daysInMonth();
+    let currentMonth = new Date(get(this, 'currentMonth').getTime());
+    let daysInMonth = (new Date(currentMonth.getFullYear(), 
+                                currentMonth.getMonth() + 1, 
+                                0))
+                      .getDate();//currentMonth.daysInMonth();
+
     let days = Ember.A();
 
     // start with days from previous month to fill up first week
-    let firstWeekday = currentMonth.isoWeekday();
+    let firstWeekday = currentMonth.getDay();
     for (let i = firstWeekday; i > 1; i--) {
       days.push(null);
     }
 
+    var fisrtDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+    let oneDay = (1000*60*60*24);
     // create one day object for every day in the month
     for (let i = 0; i < daysInMonth; i++) {
-      let day = currentMonth.clone().add(i, 'days');
+      let day = new Date(fisrtDayOfMonth.getTime());
       let dayObject = {
-        date: day,
-        dateString: day.format('YYYY-MM-DD'),
-        year: day.year(),
-        month: day.month(),
-        day: day.date(),
-        weekday: day.isoWeekday()
+        date: day;
+        dateString: [day.getFullYear(), this.pad(day.getMonth() + 1), this.pad(day.getDate())].join('/'),
+        year: day.getFullYear(),
+        month: this.pad(day.getMonth() + 1),
+        day: this.pad(day.getDate()),
+        weekday: day.getDay() + 1
       };
-
+      day = new Date(day.getTime() + oneDay);
       days.push(dayObject);
     }
 
     // end with days from next month to fill up last week
-    let lastWeekday = currentMonth.clone().endOf('month').isoWeekday();
+    let lastWeekday = daysInMonth.getDay();//currentMonth.clone().endOf('month').isoWeekday();
     for (let i = 1; i <= 7 - lastWeekday; i++) {
       days.push(null);
     }
@@ -199,11 +215,23 @@ export default Ember.Component.extend({
       }
       set(day, 'disabled', this._dayIsDisabled(day.date));
       set(day, 'inRange', this._dayIsInRange(day.date));
+      set(day, 'isSelected', this._dayIsSelected(day.date));
+      set(day, 'isToday', this._dayIsToday(day.date));
     });
 
     return days;
   }),
 
+
+  datePickerDayClasses(day) {
+    let baseClass = 'date-picker__day';//get(this, 'baseDayClass')
+    let isTodayClass = day.isToday ? ` ${baseClass}--today` : '';
+    let isSelectedClass = day.isSelected ? ` ${baseClass}--selected` : '';
+    let isDisabledClass = day.isDisabled ? ` ${baseClass}--disabled` : '';
+    let isInRangeClass = day.isInRange ? ` ${baseClass}--in-range` : '';
+
+    return `${baseClass}${isTodayClass}${isSelectedClass}${isDisabledClass}${isInRangeClass}`;
+  },
   /**
    * The localized weekdays, starting with monday.
    *
@@ -213,8 +241,7 @@ export default Ember.Component.extend({
    * @private
    */
   weekdays: computed(function() {
-    let weekdays = moment.weekdaysMin();
-    weekdays.push(weekdays.shift());
+    let weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     return weekdays;
   }),
 
@@ -227,7 +254,8 @@ export default Ember.Component.extend({
    * @private
    */
   today: computed(function() {
-    return moment().startOf('day');
+    var now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate());//moment().startOf('day');
   }),
 
   // PROPERTIES END ----------------------------------------
@@ -238,8 +266,8 @@ export default Ember.Component.extend({
     let minDate = get(this, 'minDate');
     let maxDate = get(this, 'maxDate');
 
-    set(this, '_minDate', minDate ? minDate.clone().startOf('day') : null);
-    set(this, '_maxDate', maxDate ? maxDate.clone().startOf('day') : null);
+    set(this, '_minDate', minDate ? new Date(minDate+' 00:00:00') : null);
+    set(this, '_maxDate', maxDate ? new Date(maxDate+' 00:00:00') : null);
   },
 
   // HOOKS END ----------------------------------------
@@ -261,10 +289,10 @@ export default Ember.Component.extend({
       _maxDate
     } = getProperties(this, '_minDate', '_maxDate');
 
-    if (_minDate && _minDate.valueOf() > day.valueOf()) {
+    if (_minDate && _minDate.getTime() > day.getTime()) {
       return true;
     }
-    return _maxDate && _maxDate.valueOf() < day.valueOf();
+    return _maxDate && _maxDate.getTime() < day.getTime();
   },
 
   /**
@@ -283,15 +311,38 @@ export default Ember.Component.extend({
       return false;
     }
 
-    let selectedDateVal = selectedDates[0].clone().startOf('day').valueOf();
-    let selectedUntilVal = selectedDates[1].clone().startOf('day').valueOf();
-    let dayVal = day.valueOf();
+    let selectedDateVal = selectedDates[0].getTime();//clone().startOf('day').valueOf();
+    let selectedUntilVal = selectedDates[1].getTime();//clone().startOf('day').valueOf();
+    let dayVal = day.getTime();
 
     if (selectedDateVal > selectedUntilVal) {
       return dayVal > selectedUntilVal && dayVal < selectedDateVal;
     } else {
       return dayVal < selectedUntilVal && dayVal > selectedDateVal;
     }
+  },
+
+  _dayIsToday(date) {
+    let today = get(this, 'today');
+    if(date.getTime() === today.getTime())
+      return true;
+    return false;
+  },
+
+  _dayIsSelected(date) {
+    let selectedDates = get(this, 'selectedDates');
+    for(var i = 0; i < selectedDates.length; i++)
+    {
+      if(selectedDates[i].getTime() == date.getTime())
+        return true;
+    }
+    return false;
+  },
+
+  pad(val) {
+    if((val + '').length < 2)
+      return '0' + val;
+    return '' + val;
   },
 
   actions: {
