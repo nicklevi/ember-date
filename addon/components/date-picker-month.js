@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import layout from '../templates/components/date-picker-month';
-import moment from 'moment';
 
 const { get, set, computed, getProperties } = Ember;
 
@@ -176,7 +175,7 @@ export default Ember.Component.extend({
     for (let i = 0; i < daysInMonth; i++) {
       let day = new Date(fisrtDayOfMonth.getTime());
       let dayObject = {
-        date: day;
+        date: day,
         dateString: [day.getFullYear(), this.pad(day.getMonth() + 1), this.pad(day.getDate())].join('/'),
         year: day.getFullYear(),
         month: this.pad(day.getMonth() + 1),
@@ -241,8 +240,7 @@ export default Ember.Component.extend({
    * @private
    */
   weekdays: computed(function() {
-    let weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    return weekdays;
+    return['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   }),
 
   /**

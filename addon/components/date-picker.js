@@ -111,7 +111,7 @@ export default Ember.Component.extend({
   },
 
   formatDate(date, format) {
-    var mapFormat [
+    var mapFormat = {
       'y': function(date){
         return (date.getFullYear() + '').substring(2, 4);
       },
@@ -127,7 +127,7 @@ export default Ember.Component.extend({
       'm': function(date){
         return this.pad(date.getMonth() + 1);
       }
-    ];
+    };
 
     var seprator = format.match(/[\/\.\-]/);
     var parts = format.split(/[\/\.\-]/);
