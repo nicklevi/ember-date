@@ -1,4 +1,4 @@
-define('ember-date/components/date-picker', ['exports', 'ember', '../templates/components/date-picker', 'moment'], function (exports, _ember, _templatesComponentsDatePicker, _moment) {
+define('ember-date/components/date-picker', ['exports', 'ember', '../templates/components/date-picker'], function (exports, _ember, _templatesComponentsDatePicker) {
   'use strict';
 
   var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
@@ -428,37 +428,37 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       'last7Days': {
         action: 'selectDateRange',
         label: 'Last 7 days',
-        actionValue: [(0, _moment['default'])().startOf('day').subtract(6, 'days'), (0, _moment['default'])().startOf('day')]
+        actionValue: [moment().startOf('day').subtract(6, 'days'), moment().startOf('day')]
       },
       'last30Days': {
         action: 'selectDateRange',
         label: 'Last 30 days',
-        actionValue: [(0, _moment['default'])().startOf('day').subtract(29, 'days'), (0, _moment['default'])().startOf('day')]
+        actionValue: [moment().startOf('day').subtract(29, 'days'), moment().startOf('day')]
       },
       'lastYear': {
         action: 'selectDateRange',
         label: 'Last year',
-        actionValue: [(0, _moment['default'])().startOf('day').subtract(1, 'year').add(1, 'day'), (0, _moment['default'])().startOf('day')]
+        actionValue: [moment().startOf('day').subtract(1, 'year').add(1, 'day'), moment().startOf('day')]
       },
       'last3Months': {
         action: 'selectDateRange',
         label: 'Last 3 months',
-        actionValue: [(0, _moment['default'])().startOf('day').subtract(3, 'months').add(1, 'day'), (0, _moment['default'])().startOf('day')]
+        actionValue: [moment().startOf('day').subtract(3, 'months').add(1, 'day'), moment().startOf('day')]
       },
       'last6Months': {
         action: 'selectDateRange',
         label: 'Last 6 months',
-        actionValue: [(0, _moment['default'])().startOf('day').subtract(6, 'months').add(1, 'day'), (0, _moment['default'])().startOf('day')]
+        actionValue: [moment().startOf('day').subtract(6, 'months').add(1, 'day'), moment().startOf('day')]
       },
       'thisWeek': {
         action: 'selectDateRange',
         label: 'This week',
-        actionValue: [(0, _moment['default'])().startOf('isoweek'), (0, _moment['default'])().startOf('day')]
+        actionValue: [moment().startOf('isoweek'), moment().startOf('day')]
       },
       'thisMonth': {
         action: 'selectDateRange',
         label: 'This month',
-        actionValue: [(0, _moment['default'])().startOf('month'), (0, _moment['default'])().startOf('day')]
+        actionValue: [moment().startOf('month'), moment().startOf('day')]
       }
     },
 
@@ -522,10 +522,10 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       set(this, '_dates', val);
 
       if (val.length > 0) {
-        var month = val[0] ? val[0].clone().startOf('month') : (0, _moment['default'])().startOf('month');
+        var month = val[0] ? val[0].clone().startOf('month') : moment().startOf('month');
         set(this, 'currentMonth', month);
       } else {
-        var month = (0, _moment['default'])().startOf('month');
+        var month = moment().startOf('month');
         set(this, 'currentMonth', month);
       }
 
@@ -800,7 +800,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       },
 
       selectToday: function selectToday() {
-        var today = (0, _moment['default'])().startOf('day');
+        var today = moment().startOf('day');
         if (get(this, 'range')) {
           set(this, '_dates', _ember['default'].A([today, today]));
         } else {
