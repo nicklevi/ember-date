@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import layout from '../templates/components/date-picker';
-import moment from 'moment';
 
 const {
   get,
