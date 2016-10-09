@@ -47,7 +47,7 @@ foreach ($iterator as $file) {
     //remove file extension
     $moduleId = substr($moduleId, 0, -4);
     $files[$moduleId] = [
-      'path'   => $file->getPathName(),
+      'path'   => $file->getPathName().".js",
       'source' => $compiler->compileHbs($path, $source, $moduleId, $name),
     ];
    }

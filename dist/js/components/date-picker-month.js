@@ -1,4 +1,4 @@
-define('ember-date-components/components/date-picker-month', ['exports', 'ember', '../templates/components/date-picker-month'], function (exports, _ember, _templatesComponentsDatePickerMonth) {
+define('ember-date/components/date-picker-month', ['exports', 'ember', '../templates/components/date-picker-month'], function (exports, _ember, _templatesComponentsDatePickerMonth) {
   'use strict';
 
   var get = _ember['default'].get;

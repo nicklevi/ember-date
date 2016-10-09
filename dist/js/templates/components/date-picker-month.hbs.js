@@ -1,4 +1,4 @@
-define("ember-date-components/templates/components/date-picker-month", ["exports", "ember"], function (exports, _ember) {
+define("ember-date/templates/components/date-picker-month", ["exports", "ember"], function (exports, _ember) {
   "use strict";
 
   exports["default"] = _ember["default"].HTMLBars.template((function () {
