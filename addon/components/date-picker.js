@@ -136,7 +136,7 @@ export default Ember.Component.extend({
     if(seprator.length != 1)
       throw new Error('Non supported format');
 
-    for(var i = 0; i < parts; i++)
+    for(var i = 0; i < parts.length; i++)
     {
       var part = mapFormat[parts[i]];
       if(!part)
@@ -402,6 +402,106 @@ export default Ember.Component.extend({
     });
   }),
 
+  last7Days: function()
+  {
+    var now = new Date();
+    var oneDay = (1000*60*60*24);
+    var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+    var start = new Date(today.getTime() - (6 * oneDay));
+
+    return [start, end];
+  },
+
+  last30Days: function()
+  {
+    var now = new Date();
+    var oneDay = (1000*60*60*24);
+    var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+    var start = new Date(today.getTime() - (29 * oneDay));
+
+    return [start, end];
+  },
+
+  lastYear: function()
+  {
+    var now = new Date();
+    var oneDay = (1000*60*60*24);
+    var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+    var tmp = new Date(end.getFullYear() - 1, now.getMonth(), now.getDate(), 0);
+    var start = new Date(tmp.getTime() + oneDay);
+
+    return [start, end];
+  },
+
+  last3Months: function()
+  {
+    var now = new Date();
+    var oneDay = (1000*60*60*24);
+    var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+
+    var month = now.getMonth() - 3;
+    var year  = now.getFullYear();
+    var date  = now.getDate();
+
+    year  = (month < 0) ? (year - 1)   : year;
+    month = (month < 0) ? (11 - month) : month;
+
+    var tmp = new Date(year, month + 1, 0, 0);
+    var daysInMonth = tmp.getDate();
+    date = daysInMonth <= date ? (daysInMonth - 1) : date;
+
+    var start = new Date(tmp.getTime() + oneDay);
+
+    return [start, end];
+  },
+
+  last6Months: function()
+  {
+    var now = new Date();
+    var oneDay = (1000*60*60*24);
+    var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+
+    var month = now.getMonth() - 6;
+    var year  = now.getFullYear();
+    var date  = now.getDate();
+
+    year  = (month < 0) ? (year - 1)   : year;
+    month = (month < 0) ? (11 - month) : month;
+
+    var tmp = new Date(year, month + 1, 0, 0);
+    var daysInMonth = tmp.getDate();
+    date = daysInMonth <= date ? (daysInMonth - 1) : date;
+
+    var start = new Date(tmp.getTime() + oneDay);
+
+    return [start, end];
+  },
+
+  thisWeek: function()
+  {
+    var now = new Date();
+    var oneDay = (1000*60*60*24);
+
+    var weekDay = now.getDay();
+
+    var start = new Date( today.getTime() - (weekDay * oneDay) );
+    var end = new Date( start.getTime() + (6 * oneDay));
+    
+    return [start, end];
+  },
+
+  thisMonth: function()
+  {
+    var now = new Date();
+    var lastDayOfMonth = (new Date(now.getFullYear(), now.getMonth() + 1, 0))
+                          .getDate();
+
+    var start = new Date( now.getFullYear(), now.getMonth(), 1 );
+    var end = new Date( now.getFullYear(), now.getMonth(), lastDayOfMonth);
+    
+    return [start, end];
+  },
+
   /**
    * This maps how option names are mapped to actual options.
    * You can overwrite this if you want to have different option shortcuts.
@@ -415,45 +515,53 @@ export default Ember.Component.extend({
       action: 'clearDate',
       label: 'Clear'
     },
+
     'today': {
       action: 'selectToday',
       label: 'Today'
     },
-    // 'last7Days': {
-    //   action: 'selectDateRange',
-    //   label: 'Last 7 days',
-    //   actionValue: [moment().startOf('day').subtract(6, 'days'), moment().startOf('day')]
-    // },
-    // 'last30Days': {
-    //   action: 'selectDateRange',
-    //   label: 'Last 30 days',
-    //   actionValue: [moment().startOf('day').subtract(29, 'days'), moment().startOf('day')]
-    // },
-    // 'lastYear': {
-    //   action: 'selectDateRange',
-    //   label: 'Last year',
-    //   actionValue: [moment().startOf('day').subtract(1, 'year').add(1, 'day'), moment().startOf('day')]
-    // },
-    // 'last3Months': {
-    //   action: 'selectDateRange',
-    //   label: 'Last 3 months',
-    //   actionValue: [moment().startOf('day').subtract(3, 'months').add(1, 'day'), moment().startOf('day')]
-    // },
-    // 'last6Months': {
-    //   action: 'selectDateRange',
-    //   label: 'Last 6 months',
-    //   actionValue: [moment().startOf('day').subtract(6, 'months').add(1, 'day'), moment().startOf('day')]
-    // },
-    // 'thisWeek': {
-    //   action: 'selectDateRange',
-    //   label: 'This week',
-    //   actionValue: [moment().startOf('isoweek'), moment().startOf('day')]
-    // },
-    // 'thisMonth': {
-    //   action: 'selectDateRange',
-    //   label: 'This month',
-    //   actionValue: [moment().startOf('month'), moment().startOf('day')]
-    // }
+
+    'last7Days': {
+      action: 'selectDateRange',
+      label: 'Last 7 days',
+      actionValue: this.last7Days()
+    },
+
+    'last30Days': {
+      action: 'selectDateRange',
+      label: 'Last 30 days',
+      actionValue: this.last30Days()
+    },
+
+    'lastYear': {
+      action: 'selectDateRange',
+      label: 'Last year',
+      actionValue: this.lastYear()
+    },
+
+    'last3Months': {
+      action: 'selectDateRange',
+      label: 'Last 3 months',
+      actionValue: this.last3Months()
+    },
+
+    'last6Months': {
+      action: 'selectDateRange',
+      label: 'Last 6 months',
+      actionValue: this.last6Months()
+    },
+
+    'thisWeek': {
+      action: 'selectDateRange',
+      label: 'This week',
+      actionValue: this.thisWeek()
+    },
+
+    'thisMonth': {
+      action: 'selectDateRange',
+      label: 'This month',
+      actionValue: this.thisMonth()
+    }
   },
 
   /**
