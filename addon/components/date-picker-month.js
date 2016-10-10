@@ -125,7 +125,6 @@ export default Ember.Component.extend({
     //getDate 1 - 31
 
     return new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
-    //return date ? date.clone().startOf('month') : moment().startOf('month');
   }),
 
   /**
@@ -156,15 +155,17 @@ export default Ember.Component.extend({
    */
   _daysInMonth: computed('currentMonth', function() {
     let currentMonth = new Date(get(this, 'currentMonth').getTime());
+
     let daysInMonth = (new Date(currentMonth.getFullYear(), 
                                 currentMonth.getMonth() + 1, 
                                 0))
-                      .getDate();//currentMonth.daysInMonth();
+                      .getDate();
 
     let days = Ember.A();
 
     // start with days from previous month to fill up first week
     let firstWeekday = currentMonth.getDay();
+    //for (let i = firstWeekday; i > 1; i--) {
     for (let i = firstWeekday; i > 0; i--) {
       days.push(null);
     }
@@ -192,10 +193,11 @@ export default Ember.Component.extend({
     let lastDayOfMonth = (new Date(currentMonth.getFullYear(), 
                                 currentMonth.getMonth() + 1, 
                                 0));
-                      //.getDate();
+                      
     // end with days from next month to fill up last week
-    let lastWeekday = lastDayOfMonth.getDay();//currentMonth.clone().endOf('month').isoWeekday();
-    for (let i = 1; i <= 7 - lastWeekday; i++) {
+    let lastWeekday = lastDayOfMonth.getDay();
+    //for (let i = 1; i <= (7 - lastWeekday); i++) {
+    for (let i = 0; i <  (6 - lastWeekday); i++) {
       days.push(null);
     }
 
@@ -223,7 +225,7 @@ export default Ember.Component.extend({
       set(day, 'inRange', this._dayIsInRange(day.date));
       set(day, 'isSelected', this._dayIsSelected(day.date));
       set(day, 'isToday', this._dayIsToday(day.date));
-      
+      set(day, 'classes', this.datePickerDayClasses(day));
     });
 
     return days;
@@ -231,16 +233,16 @@ export default Ember.Component.extend({
 
 
   datePickerDayClasses(day) {
-    let baseClass = 'date-picker__day';//get(this, 'baseDayClass')
-    let isTodayClass = day.isToday ? ` ${baseClass}--today` : '';
-    let isSelectedClass = day.isSelected ? ` ${baseClass}--selected` : '';
-    let isDisabledClass = day.isDisabled ? ` ${baseClass}--disabled` : '';
-    let isInRangeClass = day.isInRange ? ` ${baseClass}--in-range` : '';
+    let baseClass       = 'date-picker__day';
+    let isTodayClass    = day.isToday         ? ` ${baseClass}--today`    : '';
+    let isSelectedClass = day.isSelected      ? ` ${baseClass}--selected` : '';
+    let isDisabledClass = day.isDisabled      ? ` ${baseClass}--disabled` : '';
+    let isInRangeClass  = day.isInRange       ? ` ${baseClass}--in-range` : '';
 
     return `${baseClass}${isTodayClass}${isSelectedClass}${isDisabledClass}${isInRangeClass}`;
   },
   /**
-   * The localized weekdays, starting with monday.
+   * The localized weekdays, starting with *monday* Sunday.
    *
    * @property weekdays
    * @type {String[]}
@@ -248,7 +250,7 @@ export default Ember.Component.extend({
    * @private
    */
   weekdays: computed(function() {
-    return['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   }),
 
   /**
@@ -261,7 +263,7 @@ export default Ember.Component.extend({
    */
   today: computed(function() {
     var now = new Date();
-    return new Date(now.getFullYear(), now.getMonth(), now.getDate());//moment().startOf('day');
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate());
   }),
 
   // PROPERTIES END ----------------------------------------
@@ -317,9 +319,9 @@ export default Ember.Component.extend({
       return false;
     }
 
-    let selectedDateVal = selectedDates[0].getTime();//clone().startOf('day').valueOf();
-    let selectedUntilVal = selectedDates[1].getTime();//clone().startOf('day').valueOf();
-    let dayVal = day.getTime();
+    let selectedDateVal   = selectedDates[0].getTime();
+    let selectedUntilVal  = selectedDates[1].getTime();
+    let dayVal            = day.getTime();
 
     if (selectedDateVal > selectedUntilVal) {
       return dayVal > selectedUntilVal && dayVal < selectedDateVal;

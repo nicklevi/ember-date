@@ -370,7 +370,7 @@ export default Ember.Component.extend({
       return get(this, 'placeholder');
     }
 
-    return this.formatDate(dateForm, dateFormat);//dateFrom.format(dateFormat);
+    return this.formatDate(dateFrom, dateFormat);//dateFrom.format(dateFormat);
   }),
 
   titleText: computed('currentMonth', 'titleDateFormat', function() {
@@ -392,7 +392,7 @@ export default Ember.Component.extend({
    */
   buttonToText: computed('range', '_dates.[]', function() {
     let vals = get(this, '_dates') || Ember.A([]);
-    //let dateFormat = get(this, 'buttonDateFormat');
+    let dateFormat = get(this, 'buttonDateFormat');
 
     let [,dateTo] = vals;
 
@@ -400,7 +400,7 @@ export default Ember.Component.extend({
       return get(this, 'placeholder');
     }
 
-    return this.formatDate(dateTo, dateFormat);//dateTo.format(dateFormat);
+    return this.formatDate(dateTo, dateFormat);
   }),
 
   /**
@@ -412,9 +412,9 @@ export default Ember.Component.extend({
    * @private
    */
   buttonFocused: computed('range', 'isOpen', 'isToStep', function() {
-    let isRange = get(this, 'range');
-    let isOpen = get(this, 'isOpen');
-    let isToStep = get(this, 'isToStep');
+    let isRange   = get(this, 'range');
+    let isOpen    = get(this, 'isOpen');
+    let isToStep  = get(this, 'isToStep');
 
     return isRange ? (isOpen && !isToStep) : (isOpen);
   }),
@@ -428,9 +428,9 @@ export default Ember.Component.extend({
    * @private
    */
   buttonToFocused: computed('range', 'isOpen', 'isToStep', function() {
-    let isRange = get(this, 'range');
-    let isOpen = get(this, 'isOpen');
-    let isToStep = get(this, 'isToStep');
+    let isRange   = get(this, 'range');
+    let isOpen    = get(this, 'isOpen');
+    let isToStep  = get(this, 'isToStep');
 
     return isRange ? (isOpen && isToStep) : false;
   }),
@@ -634,6 +634,7 @@ export default Ember.Component.extend({
     let val = get(this, 'value');
     let isRange = get(this, 'range');
 
+    //normalize values to array
     if (val) {
       if (Ember.typeOf(val) !== 'array') {
         val = Ember.A([val]);
@@ -646,17 +647,18 @@ export default Ember.Component.extend({
 
     var now = new Date();
 
-    if (val.length > 0) {
+    if (val.length > 0) 
+    {
       let tmp   = val[0];
       let month = tmp ? 
         new Date(tmp.getFullYear(), tmp.getMonth(), 1, 0) :
-        //val[0].clone().startOf('month') :
         new Date(now.getFullYear(), now.getMonth(), 1, 0);
-        //moment().startOf('month');
+        
       set(this, 'currentMonth', month);
+
     } else {
       let month = new Date(now.getFullYear(), now.getMonth(), 1, 0);
-      //moment().startOf('month');
+      
       set(this, 'currentMonth', month);
     }
 
@@ -675,12 +677,18 @@ export default Ember.Component.extend({
    * @private
    */
   _sendAction() {
-    let action = get(this, 'attrs.action');
-    let vals = get(this, '_dates');
+    let action  = get(this, 'attrs.action');
+    let vals    = get(this, '_dates');
     let isRange = get(this, 'range');
 
+    if (action && isRange) {
+      action(vals || null);
+      return;
+    }
+
     if (action) {
-      action(isRange ? vals : vals[0] || null);
+      action(vals[0] || null, this.formatDate(vals[0], 'Y-m-d'));
+      return;
     }
   },
 
@@ -781,11 +789,14 @@ export default Ember.Component.extend({
     let [dateFrom] = dates;
     let vals;
 
+    let oneDay = 1000 * 60 * 60 * 24;
+
     if (date) {
-      date = date.endOf('day');
+      let tmp = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0);
+      date    = new Date(tmp.getTime() + (oneDay - 1));
     }
 
-    if (date && (dateFrom && date.valueOf() < dateFrom.valueOf())) {
+    if (date && (dateFrom && date.getTime() < dateFrom.getTime())) {
       vals = Ember.A([date, dateFrom]);
     } else {
       vals = Ember.A([dateFrom, date]);

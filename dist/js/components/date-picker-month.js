@@ -127,7 +127,6 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
       //getDate 1 - 31
 
       return new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
-      //return date ? date.clone().startOf('month') : moment().startOf('month');
     }),
 
     /**
@@ -158,12 +157,14 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
      */
     _daysInMonth: computed('currentMonth', function () {
       var currentMonth = new Date(get(this, 'currentMonth').getTime());
-      var daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate(); //currentMonth.daysInMonth();
+
+      var daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
 
       var days = _ember['default'].A();
 
       // start with days from previous month to fill up first week
       var firstWeekday = currentMonth.getDay();
+      //for (let i = firstWeekday; i > 1; i--) {
       for (var i = firstWeekday; i > 0; i--) {
         days.push(null);
       }
@@ -188,10 +189,11 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
       }
 
       var lastDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
-      //.getDate();
+
       // end with days from next month to fill up last week
-      var lastWeekday = lastDayOfMonth.getDay(); //currentMonth.clone().endOf('month').isoWeekday();
-      for (var i = 1; i <= 7 - lastWeekday; i++) {
+      var lastWeekday = lastDayOfMonth.getDay();
+      //for (let i = 1; i <= (7 - lastWeekday); i++) {
+      for (var i = 0; i < 6 - lastWeekday; i++) {
         days.push(null);
       }
 
@@ -221,13 +223,14 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
         set(day, 'inRange', _this._dayIsInRange(day.date));
         set(day, 'isSelected', _this._dayIsSelected(day.date));
         set(day, 'isToday', _this._dayIsToday(day.date));
+        set(day, 'classes', _this.datePickerDayClasses(day));
       });
 
       return days;
     }),
 
     datePickerDayClasses: function datePickerDayClasses(day) {
-      var baseClass = 'date-picker__day'; //get(this, 'baseDayClass')
+      var baseClass = 'date-picker__day';
       var isTodayClass = day.isToday ? ' ' + baseClass + '--today' : '';
       var isSelectedClass = day.isSelected ? ' ' + baseClass + '--selected' : '';
       var isDisabledClass = day.isDisabled ? ' ' + baseClass + '--disabled' : '';
@@ -236,7 +239,7 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
       return '' + baseClass + isTodayClass + isSelectedClass + isDisabledClass + isInRangeClass;
     },
     /**
-     * The localized weekdays, starting with monday.
+     * The localized weekdays, starting with *monday* Sunday.
      *
      * @property weekdays
      * @type {String[]}
@@ -257,7 +260,7 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
      */
     today: computed(function () {
       var now = new Date();
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate()); //moment().startOf('day');
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate());
     }),
 
     // PROPERTIES END ----------------------------------------
@@ -313,8 +316,8 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
         return false;
       }
 
-      var selectedDateVal = selectedDates[0].getTime(); //clone().startOf('day').valueOf();
-      var selectedUntilVal = selectedDates[1].getTime(); //clone().startOf('day').valueOf();
+      var selectedDateVal = selectedDates[0].getTime();
+      var selectedUntilVal = selectedDates[1].getTime();
       var dayVal = day.getTime();
 
       if (selectedDateVal > selectedUntilVal) {

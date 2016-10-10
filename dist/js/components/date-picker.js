@@ -355,7 +355,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
         return get(this, 'placeholder');
       }
 
-      return this.formatDate(dateForm, dateFormat); //dateFrom.format(dateFormat);
+      return this.formatDate(dateFrom, dateFormat); //dateFrom.format(dateFormat);
     }),
 
     titleText: computed('currentMonth', 'titleDateFormat', function () {
@@ -377,7 +377,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
      */
     buttonToText: computed('range', '_dates.[]', function () {
       var vals = get(this, '_dates') || _ember['default'].A([]);
-      //let dateFormat = get(this, 'buttonDateFormat');
+      var dateFormat = get(this, 'buttonDateFormat');
 
       var dateTo = vals[1];
 
@@ -385,7 +385,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
         return get(this, 'placeholder');
       }
 
-      return this.formatDate(dateTo, dateFormat); //dateTo.format(dateFormat);
+      return this.formatDate(dateTo, dateFormat);
     }),
 
     /**
@@ -615,6 +615,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       var val = get(this, 'value');
       var isRange = get(this, 'range');
 
+      //normalize values to array
       if (val) {
         if (_ember['default'].typeOf(val) !== 'array') {
           val = _ember['default'].A([val]);
@@ -629,14 +630,12 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
 
       if (val.length > 0) {
         var tmp = val[0];
-        var month = tmp ? new Date(tmp.getFullYear(), tmp.getMonth(), 1, 0) :
-        //val[0].clone().startOf('month') :
-        new Date(now.getFullYear(), now.getMonth(), 1, 0);
-        //moment().startOf('month');
+        var month = tmp ? new Date(tmp.getFullYear(), tmp.getMonth(), 1, 0) : new Date(now.getFullYear(), now.getMonth(), 1, 0);
+
         set(this, 'currentMonth', month);
       } else {
         var month = new Date(now.getFullYear(), now.getMonth(), 1, 0);
-        //moment().startOf('month');
+
         set(this, 'currentMonth', month);
       }
 
@@ -659,8 +658,14 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       var vals = get(this, '_dates');
       var isRange = get(this, 'range');
 
+      if (action && isRange) {
+        action(vals || null);
+        return;
+      }
+
       if (action) {
-        action(isRange ? vals : vals[0] || null);
+        action(vals[0] || null, this.formatDate(vals[0], 'Y-m-d'));
+        return;
       }
     },
 
@@ -763,11 +768,14 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
 
       var vals = undefined;
 
+      var oneDay = 1000 * 60 * 60 * 24;
+
       if (date) {
-        date = date.endOf('day');
+        var tmp = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0);
+        date = new Date(tmp.getTime() + (oneDay - 1));
       }
 
-      if (date && dateFrom && date.valueOf() < dateFrom.valueOf()) {
+      if (date && dateFrom && date.getTime() < dateFrom.getTime()) {
         vals = _ember['default'].A([date, dateFrom]);
       } else {
         vals = _ember['default'].A([dateFrom, date]);
