@@ -11,10 +11,9 @@
 <div class='date-picker__days'>
   {{#each daysInMonth as |date|}}
     {{#if date}}
-      <button
-        data-test="day-{{date.month}}-{{date.day}}"
+      <button 
+        class={{date.classes}}
         disabled={{date.disabled}}
-        class="date.disabled:date-picker__day--disabled date.inRange:date-picker__day--in-range date.isToday:date-picker__day--today date.isSelected:date-picker__day--selected"
         {{action 'selectDate' date.date}}>
         {{date.day}}
       </button>

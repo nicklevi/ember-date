@@ -164,7 +164,7 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
 
       // start with days from previous month to fill up first week
       var firstWeekday = currentMonth.getDay();
-      for (var i = firstWeekday; i > 1; i--) {
+      for (var i = firstWeekday; i > 0; i--) {
         days.push(null);
       }
 

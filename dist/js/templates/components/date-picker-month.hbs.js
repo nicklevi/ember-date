@@ -106,7 +106,7 @@ define("ember-date/templates/components/date-picker-month", ["exports", "ember"]
                 "column": 4
               },
               "end": {
-                "line": 21,
+                "line": 20,
                 "column": 4
               }
             }
@@ -119,7 +119,6 @@ define("ember-date/templates/components/date-picker-month", ["exports", "ember"]
             var el1 = dom.createTextNode("      ");
             dom.appendChild(el0, el1);
             var el1 = dom.createElement("button");
-            dom.setAttribute(el1, "class", "date.disabled:date-picker__day--disabled date.inRange:date-picker__day--in-range date.isToday:date-picker__day--today date.isSelected:date-picker__day--selected");
             var el2 = dom.createTextNode("\n        ");
             dom.appendChild(el1, el2);
             var el2 = dom.createComment("");
@@ -134,13 +133,13 @@ define("ember-date/templates/components/date-picker-month", ["exports", "ember"]
           buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
             var element0 = dom.childAt(fragment, [1]);
             var morphs = new Array(4);
-            morphs[0] = dom.createAttrMorph(element0, 'data-test');
+            morphs[0] = dom.createAttrMorph(element0, 'class');
             morphs[1] = dom.createAttrMorph(element0, 'disabled');
             morphs[2] = dom.createElementMorph(element0);
             morphs[3] = dom.createMorphAt(element0, 1, 1);
             return morphs;
           },
-          statements: [["attribute", "data-test", ["concat", ["day-", ["get", "date.month", ["loc", [null, [15, 25], [15, 35]]]], "-", ["get", "date.day", ["loc", [null, [15, 40], [15, 48]]]]]]], ["attribute", "disabled", ["get", "date.disabled", ["loc", [null, [16, 19], [16, 32]]]]], ["element", "action", ["selectDate", ["get", "date.date", ["loc", [null, [18, 30], [18, 39]]]]], [], ["loc", [null, [18, 8], [18, 41]]]], ["content", "date.day", ["loc", [null, [19, 8], [19, 20]]]]],
+          statements: [["attribute", "class", ["get", "date.classes", ["loc", [null, [15, 16], [15, 28]]]]], ["attribute", "disabled", ["get", "date.disabled", ["loc", [null, [16, 19], [16, 32]]]]], ["element", "action", ["selectDate", ["get", "date.date", ["loc", [null, [17, 30], [17, 39]]]]], [], ["loc", [null, [17, 8], [17, 41]]]], ["content", "date.day", ["loc", [null, [18, 8], [18, 20]]]]],
           locals: [],
           templates: []
         };
@@ -152,11 +151,11 @@ define("ember-date/templates/components/date-picker-month", ["exports", "ember"]
             "loc": {
               "source": null,
               "start": {
-                "line": 21,
+                "line": 20,
                 "column": 4
               },
               "end": {
-                "line": 23,
+                "line": 22,
                 "column": 4
               }
             }
@@ -193,7 +192,7 @@ define("ember-date/templates/components/date-picker-month", ["exports", "ember"]
               "column": 2
             },
             "end": {
-              "line": 24,
+              "line": 23,
               "column": 2
             }
           }
@@ -214,7 +213,7 @@ define("ember-date/templates/components/date-picker-month", ["exports", "ember"]
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [["block", "if", [["get", "date", ["loc", [null, [13, 10], [13, 14]]]]], [], 0, 1, ["loc", [null, [13, 4], [23, 11]]]]],
+        statements: [["block", "if", [["get", "date", ["loc", [null, [13, 10], [13, 14]]]]], [], 0, 1, ["loc", [null, [13, 4], [22, 11]]]]],
         locals: ["date"],
         templates: [child0, child1]
       };
@@ -229,7 +228,7 @@ define("ember-date/templates/components/date-picker-month", ["exports", "ember"]
             "column": 0
           },
           "end": {
-            "line": 25,
+            "line": 24,
             "column": 6
           }
         }
@@ -259,7 +258,7 @@ define("ember-date/templates/components/date-picker-month", ["exports", "ember"]
         dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["block", "if", [["get", "showWeekdays", ["loc", [null, [1, 6], [1, 18]]]]], [], 0, null, ["loc", [null, [1, 0], [9, 7]]]], ["block", "each", [["get", "daysInMonth", ["loc", [null, [12, 10], [12, 21]]]]], [], 1, null, ["loc", [null, [12, 2], [24, 11]]]]],
+      statements: [["block", "if", [["get", "showWeekdays", ["loc", [null, [1, 6], [1, 18]]]]], [], 0, null, ["loc", [null, [1, 0], [9, 7]]]], ["block", "each", [["get", "daysInMonth", ["loc", [null, [12, 10], [12, 21]]]]], [], 1, null, ["loc", [null, [12, 2], [23, 11]]]]],
       locals: [],
       templates: [child0, child1]
     };

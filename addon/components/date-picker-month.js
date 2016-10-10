@@ -165,7 +165,7 @@ export default Ember.Component.extend({
 
     // start with days from previous month to fill up first week
     let firstWeekday = currentMonth.getDay();
-    for (let i = firstWeekday; i > 1; i--) {
+    for (let i = firstWeekday; i > 0; i--) {
       days.push(null);
     }
 
@@ -223,6 +223,7 @@ export default Ember.Component.extend({
       set(day, 'inRange', this._dayIsInRange(day.date));
       set(day, 'isSelected', this._dayIsSelected(day.date));
       set(day, 'isToday', this._dayIsToday(day.date));
+      
     });
 
     return days;
