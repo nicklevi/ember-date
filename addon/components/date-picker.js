@@ -13,8 +13,9 @@ var ranges = {
  last7Days: function()
   {
     var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
     var oneDay = (1000*60*60*24);
-    var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+    var end = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0);
     var start = new Date(today.getTime() - (6 * oneDay));
 
     return [start, end];
@@ -23,8 +24,9 @@ var ranges = {
   last30Days: function()
   {
     var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
     var oneDay = (1000*60*60*24);
-    var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+    var end = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0);
     var start = new Date(today.getTime() - (29 * oneDay));
 
     return [start, end];
@@ -33,10 +35,12 @@ var ranges = {
   lastYear: function()
   {
     var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
     var oneDay = (1000*60*60*24);
-    var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
-    var tmp = new Date(end.getFullYear() - 1, now.getMonth(), now.getDate(), 0);
+    
+    var tmp = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate(), 0);
     var start = new Date(tmp.getTime() + oneDay);
+    var end = new Date(today.getTime());
 
     return [start, end];
   },
