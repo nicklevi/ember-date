@@ -1,8 +1,6 @@
 define('ember-date/components/date-picker', ['exports', 'ember', '../templates/components/date-picker'], function (exports, _ember, _templatesComponentsDatePicker) {
   'use strict';
 
-  var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
-
   var get = _ember['default'].get;
   var set = _ember['default'].set;
   var computed = _ember['default'].computed;
@@ -109,6 +107,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
     },
 
     formatDate: function formatDate(date, format) {
+      var self = this;
       var mapFormat = {
         'y': function y(date) {
           return (date.getFullYear() + '').substring(2, 4);
@@ -119,11 +118,11 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
         },
 
         'd': function d(date) {
-          return this.pad(date.getDate());
+          return self.pad(date.getDate());
         },
 
         'm': function m(date) {
-          return this.pad(date.getMonth() + 1);
+          return self.pad(date.getMonth() + 1);
         }
       };
 
@@ -240,9 +239,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       var vals = get(this, '_dates') || _ember['default'].A([]);
       var dateFormat = get(this, 'buttonDateFormat');
 
-      var _vals = _slicedToArray(vals, 1);
-
-      var dateFrom = _vals[0];
+      var dateFrom = vals[0];
 
       if (!isRange) {
         if (!dateFrom) {
@@ -279,9 +276,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       var vals = get(this, '_dates') || _ember['default'].A([]);
       //let dateFormat = get(this, 'buttonDateFormat');
 
-      var _vals2 = _slicedToArray(vals, 2);
-
-      var dateTo = _vals2[1];
+      var dateTo = vals[1];
 
       if (!dateTo) {
         return get(this, 'placeholder');
@@ -337,10 +332,8 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
 
       var _get = get(this, '_dates');
 
-      var _get2 = _slicedToArray(_get, 2);
-
-      var dateFrom = _get2[0];
-      var dateTo = _get2[1];
+      var dateFrom = _get[0];
+      var dateTo = _get[1];
 
       if (dateFrom) {
         arr.push(dateFrom);
@@ -424,44 +417,44 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       'today': {
         action: 'selectToday',
         label: 'Today'
-      },
-      'last7Days': {
-        action: 'selectDateRange',
-        label: 'Last 7 days',
-        actionValue: [moment().startOf('day').subtract(6, 'days'), moment().startOf('day')]
-      },
-      'last30Days': {
-        action: 'selectDateRange',
-        label: 'Last 30 days',
-        actionValue: [moment().startOf('day').subtract(29, 'days'), moment().startOf('day')]
-      },
-      'lastYear': {
-        action: 'selectDateRange',
-        label: 'Last year',
-        actionValue: [moment().startOf('day').subtract(1, 'year').add(1, 'day'), moment().startOf('day')]
-      },
-      'last3Months': {
-        action: 'selectDateRange',
-        label: 'Last 3 months',
-        actionValue: [moment().startOf('day').subtract(3, 'months').add(1, 'day'), moment().startOf('day')]
-      },
-      'last6Months': {
-        action: 'selectDateRange',
-        label: 'Last 6 months',
-        actionValue: [moment().startOf('day').subtract(6, 'months').add(1, 'day'), moment().startOf('day')]
-      },
-      'thisWeek': {
-        action: 'selectDateRange',
-        label: 'This week',
-        actionValue: [moment().startOf('isoweek'), moment().startOf('day')]
-      },
-      'thisMonth': {
-        action: 'selectDateRange',
-        label: 'This month',
-        actionValue: [moment().startOf('month'), moment().startOf('day')]
       }
     },
 
+    // 'last7Days': {
+    //   action: 'selectDateRange',
+    //   label: 'Last 7 days',
+    //   actionValue: [moment().startOf('day').subtract(6, 'days'), moment().startOf('day')]
+    // },
+    // 'last30Days': {
+    //   action: 'selectDateRange',
+    //   label: 'Last 30 days',
+    //   actionValue: [moment().startOf('day').subtract(29, 'days'), moment().startOf('day')]
+    // },
+    // 'lastYear': {
+    //   action: 'selectDateRange',
+    //   label: 'Last year',
+    //   actionValue: [moment().startOf('day').subtract(1, 'year').add(1, 'day'), moment().startOf('day')]
+    // },
+    // 'last3Months': {
+    //   action: 'selectDateRange',
+    //   label: 'Last 3 months',
+    //   actionValue: [moment().startOf('day').subtract(3, 'months').add(1, 'day'), moment().startOf('day')]
+    // },
+    // 'last6Months': {
+    //   action: 'selectDateRange',
+    //   label: 'Last 6 months',
+    //   actionValue: [moment().startOf('day').subtract(6, 'months').add(1, 'day'), moment().startOf('day')]
+    // },
+    // 'thisWeek': {
+    //   action: 'selectDateRange',
+    //   label: 'This week',
+    //   actionValue: [moment().startOf('isoweek'), moment().startOf('day')]
+    // },
+    // 'thisMonth': {
+    //   action: 'selectDateRange',
+    //   label: 'This month',
+    //   actionValue: [moment().startOf('month'), moment().startOf('day')]
+    // }
     /**
      * The default options for date pickers.
      * You can overwrite this if you want different default options.
@@ -632,10 +625,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
      */
     _setFromDate: function _setFromDate(date) {
       var dates = get(this, '_dates');
-
-      var _dates = _slicedToArray(dates, 2);
-
-      var dateTo = _dates[1];
+      var dateTo = dates[1];
 
       var vals = undefined;
 
@@ -658,10 +648,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
      */
     _setToDate: function _setToDate(date) {
       var dates = get(this, '_dates');
-
-      var _dates2 = _slicedToArray(dates, 1);
-
-      var dateFrom = _dates2[0];
+      var dateFrom = dates[0];
 
       var vals = undefined;
 
@@ -709,9 +696,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
     _moveToFromStep: function _moveToFromStep() {
       var _ref = get(this, '_dates') || _ember['default'].A();
 
-      var _ref2 = _slicedToArray(_ref, 1);
-
-      var month = _ref2[0];
+      var month = _ref[0];
 
       if (month) {
         var startOfMonth = new Date(month.getFullYear(), month.getMonth(), 1);
@@ -728,11 +713,9 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
      * @private
      */
     _moveToToStep: function _moveToToStep() {
-      var _ref3 = get(this, '_dates') || _ember['default'].A();
+      var _ref2 = get(this, '_dates') || _ember['default'].A();
 
-      var _ref32 = _slicedToArray(_ref3, 2);
-
-      var month = _ref32[1];
+      var month = _ref2[1];
 
       if (month) {
         var startOfMonth = new Date(month.getFullYear(), month.getMonth(), 1);
@@ -809,7 +792,8 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       },
 
       selectToday: function selectToday() {
-        var today = moment().startOf('day');
+        var now = new Date();
+        var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
         if (get(this, 'range')) {
           set(this, '_dates', _ember['default'].A([today, today]));
         } else {

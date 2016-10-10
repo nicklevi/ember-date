@@ -110,6 +110,7 @@ export default Ember.Component.extend({
   },
 
   formatDate(date, format) {
+    var self = this;
     var mapFormat = {
       'y': function(date){
         return (date.getFullYear() + '').substring(2, 4);
@@ -120,11 +121,11 @@ export default Ember.Component.extend({
       },
 
       'd': function(date){
-        return this.pad(date.getDate());
+        return self.pad(date.getDate());
       },
 
       'm': function(date){
-        return this.pad(date.getMonth() + 1);
+        return self.pad(date.getMonth() + 1);
       }
     };
 
@@ -261,8 +262,8 @@ export default Ember.Component.extend({
   }),
 
   titleText: computed('currentMonth', 'titleDateFormat', function() {
-    let currentMonth = get(this, 'currentMonth');
-    let dateFormat = get(this, 'titleDateFormat');
+    let currentMonth  = get(this, 'currentMonth');
+    let dateFormat    = get(this, 'titleDateFormat');
     
     return this.formatDate(currentMonth, dateFormat);
   }),
@@ -418,41 +419,41 @@ export default Ember.Component.extend({
       action: 'selectToday',
       label: 'Today'
     },
-    'last7Days': {
-      action: 'selectDateRange',
-      label: 'Last 7 days',
-      actionValue: [moment().startOf('day').subtract(6, 'days'), moment().startOf('day')]
-    },
-    'last30Days': {
-      action: 'selectDateRange',
-      label: 'Last 30 days',
-      actionValue: [moment().startOf('day').subtract(29, 'days'), moment().startOf('day')]
-    },
-    'lastYear': {
-      action: 'selectDateRange',
-      label: 'Last year',
-      actionValue: [moment().startOf('day').subtract(1, 'year').add(1, 'day'), moment().startOf('day')]
-    },
-    'last3Months': {
-      action: 'selectDateRange',
-      label: 'Last 3 months',
-      actionValue: [moment().startOf('day').subtract(3, 'months').add(1, 'day'), moment().startOf('day')]
-    },
-    'last6Months': {
-      action: 'selectDateRange',
-      label: 'Last 6 months',
-      actionValue: [moment().startOf('day').subtract(6, 'months').add(1, 'day'), moment().startOf('day')]
-    },
-    'thisWeek': {
-      action: 'selectDateRange',
-      label: 'This week',
-      actionValue: [moment().startOf('isoweek'), moment().startOf('day')]
-    },
-    'thisMonth': {
-      action: 'selectDateRange',
-      label: 'This month',
-      actionValue: [moment().startOf('month'), moment().startOf('day')]
-    }
+    // 'last7Days': {
+    //   action: 'selectDateRange',
+    //   label: 'Last 7 days',
+    //   actionValue: [moment().startOf('day').subtract(6, 'days'), moment().startOf('day')]
+    // },
+    // 'last30Days': {
+    //   action: 'selectDateRange',
+    //   label: 'Last 30 days',
+    //   actionValue: [moment().startOf('day').subtract(29, 'days'), moment().startOf('day')]
+    // },
+    // 'lastYear': {
+    //   action: 'selectDateRange',
+    //   label: 'Last year',
+    //   actionValue: [moment().startOf('day').subtract(1, 'year').add(1, 'day'), moment().startOf('day')]
+    // },
+    // 'last3Months': {
+    //   action: 'selectDateRange',
+    //   label: 'Last 3 months',
+    //   actionValue: [moment().startOf('day').subtract(3, 'months').add(1, 'day'), moment().startOf('day')]
+    // },
+    // 'last6Months': {
+    //   action: 'selectDateRange',
+    //   label: 'Last 6 months',
+    //   actionValue: [moment().startOf('day').subtract(6, 'months').add(1, 'day'), moment().startOf('day')]
+    // },
+    // 'thisWeek': {
+    //   action: 'selectDateRange',
+    //   label: 'This week',
+    //   actionValue: [moment().startOf('isoweek'), moment().startOf('day')]
+    // },
+    // 'thisMonth': {
+    //   action: 'selectDateRange',
+    //   label: 'This month',
+    //   actionValue: [moment().startOf('month'), moment().startOf('day')]
+    // }
   },
 
   /**
@@ -792,7 +793,8 @@ export default Ember.Component.extend({
     },
 
     selectToday() {
-      let today = moment().startOf('day');
+      let now   = new Date();
+      let today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
       if (get(this, 'range')) {
         set(this, '_dates', Ember.A([today, today]));
       } else {
