@@ -5,6 +5,101 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
   var set = _ember['default'].set;
   var computed = _ember['default'].computed;
 
+  var ranges = {
+
+    last7Days: function last7Days() {
+      var now = new Date();
+      var oneDay = 1000 * 60 * 60 * 24;
+      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+      var start = new Date(today.getTime() - 6 * oneDay);
+
+      return [start, end];
+    },
+
+    last30Days: function last30Days() {
+      var now = new Date();
+      var oneDay = 1000 * 60 * 60 * 24;
+      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+      var start = new Date(today.getTime() - 29 * oneDay);
+
+      return [start, end];
+    },
+
+    lastYear: function lastYear() {
+      var now = new Date();
+      var oneDay = 1000 * 60 * 60 * 24;
+      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+      var tmp = new Date(end.getFullYear() - 1, now.getMonth(), now.getDate(), 0);
+      var start = new Date(tmp.getTime() + oneDay);
+
+      return [start, end];
+    },
+
+    last3Months: function last3Months() {
+      var now = new Date();
+      var oneDay = 1000 * 60 * 60 * 24;
+      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+
+      var month = now.getMonth() - 3;
+      var year = now.getFullYear();
+      var date = now.getDate();
+
+      year = month < 0 ? year - 1 : year;
+      month = month < 0 ? 11 - month : month;
+
+      var tmp = new Date(year, month + 1, 0, 0);
+      var daysInMonth = tmp.getDate();
+      date = daysInMonth <= date ? daysInMonth - 1 : date;
+
+      var start = new Date(tmp.getTime() + oneDay);
+
+      return [start, end];
+    },
+
+    last6Months: function last6Months() {
+      var now = new Date();
+      var oneDay = 1000 * 60 * 60 * 24;
+      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+
+      var month = now.getMonth() - 6;
+      var year = now.getFullYear();
+      var date = now.getDate();
+
+      year = month < 0 ? year - 1 : year;
+      month = month < 0 ? 11 - month : month;
+
+      var tmp = new Date(year, month + 1, 0, 0);
+      var daysInMonth = tmp.getDate();
+      date = daysInMonth <= date ? daysInMonth - 1 : date;
+
+      var start = new Date(tmp.getTime() + oneDay);
+
+      return [start, end];
+    },
+
+    thisWeek: function thisWeek() {
+      var now = new Date();
+      var oneDay = 1000 * 60 * 60 * 24;
+
+      var weekDay = now.getDay();
+
+      var start = new Date(today.getTime() - weekDay * oneDay);
+      var end = new Date(start.getTime() + 6 * oneDay);
+
+      return [start, end];
+    },
+
+    thisMonth: function thisMonth() {
+      var now = new Date();
+      var lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+
+      var start = new Date(now.getFullYear(), now.getMonth(), 1);
+      var end = new Date(now.getFullYear(), now.getMonth(), lastDayOfMonth);
+
+      return [start, end];
+    }
+
+  };
   /**
    * A versatile date picker component.
    * This is 100% ember based and uses no other date picker library.
@@ -401,98 +496,6 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       });
     }),
 
-    last7Days: function last7Days() {
-      var now = new Date();
-      var oneDay = 1000 * 60 * 60 * 24;
-      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
-      var start = new Date(today.getTime() - 6 * oneDay);
-
-      return [start, end];
-    },
-
-    last30Days: function last30Days() {
-      var now = new Date();
-      var oneDay = 1000 * 60 * 60 * 24;
-      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
-      var start = new Date(today.getTime() - 29 * oneDay);
-
-      return [start, end];
-    },
-
-    lastYear: function lastYear() {
-      var now = new Date();
-      var oneDay = 1000 * 60 * 60 * 24;
-      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
-      var tmp = new Date(end.getFullYear() - 1, now.getMonth(), now.getDate(), 0);
-      var start = new Date(tmp.getTime() + oneDay);
-
-      return [start, end];
-    },
-
-    last3Months: function last3Months() {
-      var now = new Date();
-      var oneDay = 1000 * 60 * 60 * 24;
-      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
-
-      var month = now.getMonth() - 3;
-      var year = now.getFullYear();
-      var date = now.getDate();
-
-      year = month < 0 ? year - 1 : year;
-      month = month < 0 ? 11 - month : month;
-
-      var tmp = new Date(year, month + 1, 0, 0);
-      var daysInMonth = tmp.getDate();
-      date = daysInMonth <= date ? daysInMonth - 1 : date;
-
-      var start = new Date(tmp.getTime() + oneDay);
-
-      return [start, end];
-    },
-
-    last6Months: function last6Months() {
-      var now = new Date();
-      var oneDay = 1000 * 60 * 60 * 24;
-      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
-
-      var month = now.getMonth() - 6;
-      var year = now.getFullYear();
-      var date = now.getDate();
-
-      year = month < 0 ? year - 1 : year;
-      month = month < 0 ? 11 - month : month;
-
-      var tmp = new Date(year, month + 1, 0, 0);
-      var daysInMonth = tmp.getDate();
-      date = daysInMonth <= date ? daysInMonth - 1 : date;
-
-      var start = new Date(tmp.getTime() + oneDay);
-
-      return [start, end];
-    },
-
-    thisWeek: function thisWeek() {
-      var now = new Date();
-      var oneDay = 1000 * 60 * 60 * 24;
-
-      var weekDay = now.getDay();
-
-      var start = new Date(today.getTime() - weekDay * oneDay);
-      var end = new Date(start.getTime() + 6 * oneDay);
-
-      return [start, end];
-    },
-
-    thisMonth: function thisMonth() {
-      var now = new Date();
-      var lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-
-      var start = new Date(now.getFullYear(), now.getMonth(), 1);
-      var end = new Date(now.getFullYear(), now.getMonth(), lastDayOfMonth);
-
-      return [start, end];
-    },
-
     /**
      * This maps how option names are mapped to actual options.
      * You can overwrite this if you want to have different option shortcuts.
@@ -515,43 +518,43 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       'last7Days': {
         action: 'selectDateRange',
         label: 'Last 7 days',
-        actionValue: undefined.last7Days()
+        actionValue: ranges.last7Days()
       },
 
       'last30Days': {
         action: 'selectDateRange',
         label: 'Last 30 days',
-        actionValue: undefined.last30Days()
+        actionValue: ranges.last30Days()
       },
 
       'lastYear': {
         action: 'selectDateRange',
         label: 'Last year',
-        actionValue: undefined.lastYear()
+        actionValue: ranges.lastYear()
       },
 
       'last3Months': {
         action: 'selectDateRange',
         label: 'Last 3 months',
-        actionValue: undefined.last3Months()
+        actionValue: ranges.last3Months()
       },
 
       'last6Months': {
         action: 'selectDateRange',
         label: 'Last 6 months',
-        actionValue: undefined.last6Months()
+        actionValue: ranges.last6Months()
       },
 
       'thisWeek': {
         action: 'selectDateRange',
         label: 'This week',
-        actionValue: undefined.thisWeek()
+        actionValue: ranges.thisWeek()
       },
 
       'thisMonth': {
         action: 'selectDateRange',
         label: 'This month',
-        actionValue: undefined.thisMonth()
+        actionValue: ranges.thisMonth()
       }
     },
 
