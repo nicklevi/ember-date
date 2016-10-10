@@ -170,9 +170,10 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
 
       var fisrtDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
       var oneDay = 1000 * 60 * 60 * 24;
+
+      var day = new Date(fisrtDayOfMonth.getTime());
       // create one day object for every day in the month
       for (var i = 0; i < daysInMonth; i++) {
-        var day = new Date(fisrtDayOfMonth.getTime());
         var dayObject = {
           date: day,
           dateString: [day.getFullYear(), this.pad(day.getMonth() + 1), this.pad(day.getDate())].join('/'),
@@ -181,12 +182,15 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
           day: this.pad(day.getDate()),
           weekday: day.getDay() + 1
         };
-        day = new Date(day.getTime() + oneDay);
         days.push(dayObject);
+        //increment day by one
+        day = new Date(day.getTime() + oneDay);
       }
 
+      var lastDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+      //.getDate();
       // end with days from next month to fill up last week
-      var lastWeekday = daysInMonth.getDay(); //currentMonth.clone().endOf('month').isoWeekday();
+      var lastWeekday = lastDayOfMonth.getDay(); //currentMonth.clone().endOf('month').isoWeekday();
       for (var i = 1; i <= 7 - lastWeekday; i++) {
         days.push(null);
       }

@@ -521,11 +521,18 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
 
       set(this, '_dates', val);
 
+      var now = new Date();
+
       if (val.length > 0) {
-        var month = val[0] ? val[0].clone().startOf('month') : moment().startOf('month');
+        var tmp = val[0];
+        var month = tmp ? new Date(tmp.getFullYear(), tmp.getMonth(), 1, 0) :
+        //val[0].clone().startOf('month') :
+        new Date(now.getFullYear(), now.getMonth(), 1, 0);
+        //moment().startOf('month');
         set(this, 'currentMonth', month);
       } else {
-        var month = moment().startOf('month');
+        var month = new Date(now.getFullYear(), now.getMonth(), 1, 0);
+        //moment().startOf('month');
         set(this, 'currentMonth', month);
       }
 
@@ -707,7 +714,8 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       var month = _ref2[0];
 
       if (month) {
-        set(this, 'currentMonth', month.clone().startOf('month'));
+        var startOfMonth = new Date(month.getFullYear(), month.getMonth(), 1);
+        set(this, 'currentMonth', startOfMonth);
       }
       set(this, 'isToStep', false);
     },
@@ -727,7 +735,8 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       var month = _ref32[1];
 
       if (month) {
-        set(this, 'currentMonth', month.clone().startOf('month'));
+        var startOfMonth = new Date(month.getFullYear(), month.getMonth(), 1);
+        set(this, 'currentMonth', startOfMonth);
       }
       set(this, 'isToStep', true);
     },
@@ -854,12 +863,26 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
 
       gotoNextMonth: function gotoNextMonth() {
         var month = get(this, 'currentMonth');
-        set(this, 'currentMonth', month.clone().add(1, 'month'));
+
+        var nextY = month.getFullYear();
+        var nextM = month.getMonth();
+
+        nextY = nextM == 11 ? nextY + 1 : nextY;
+        nextM = nextM == 11 ? 0 : nextM + 1;
+
+        set(this, 'currentMonth', new Date(nextY, nextM, 1, 0));
       },
 
       gotoPreviousMonth: function gotoPreviousMonth() {
         var month = get(this, 'currentMonth');
-        set(this, 'currentMonth', month.clone().subtract(1, 'month'));
+
+        var prevY = month.getFullYear();
+        var prevM = month.getMonth();
+
+        prevY = prevM == 0 ? prevY - 1 : prevY;
+        prevM = prevM == 0 ? 11 : prevM - 1;
+
+        set(this, 'currentMonth', new Date(prevY, prevM, 1, 0));
       },
 
       selectDate: function selectDate(date) {

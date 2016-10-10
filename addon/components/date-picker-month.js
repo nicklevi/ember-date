@@ -171,9 +171,11 @@ export default Ember.Component.extend({
 
     var fisrtDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
     let oneDay = (1000*60*60*24);
+    
+    let day = new Date(fisrtDayOfMonth.getTime());
     // create one day object for every day in the month
-    for (let i = 0; i < daysInMonth; i++) {
-      let day = new Date(fisrtDayOfMonth.getTime());
+    for (let i = 0; i < daysInMonth; i++) 
+    {  
       let dayObject = {
         date: day,
         dateString: [day.getFullYear(), this.pad(day.getMonth() + 1), this.pad(day.getDate())].join('/'),
@@ -182,12 +184,17 @@ export default Ember.Component.extend({
         day: this.pad(day.getDate()),
         weekday: day.getDay() + 1
       };
-      day = new Date(day.getTime() + oneDay);
       days.push(dayObject);
+      //increment day by one
+      day = new Date(day.getTime() + oneDay);
     }
 
+    let lastDayOfMonth = (new Date(currentMonth.getFullYear(), 
+                                currentMonth.getMonth() + 1, 
+                                0));
+                      //.getDate();
     // end with days from next month to fill up last week
-    let lastWeekday = daysInMonth.getDay();//currentMonth.clone().endOf('month').isoWeekday();
+    let lastWeekday = lastDayOfMonth.getDay();//currentMonth.clone().endOf('month').isoWeekday();
     for (let i = 1; i <= 7 - lastWeekday; i++) {
       days.push(null);
     }

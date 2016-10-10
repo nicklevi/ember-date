@@ -523,11 +523,19 @@ export default Ember.Component.extend({
 
     set(this, '_dates', val);
 
+    var now = new Date();
+
     if (val.length > 0) {
-      let month = val[0] ? val[0].clone().startOf('month') : moment().startOf('month');
+      let tmp   = val[0];
+      let month = tmp ? 
+        new Date(tmp.getFullYear(), tmp.getMonth(), 1, 0) :
+        //val[0].clone().startOf('month') :
+        new Date(now.getFullYear(), now.getMonth(), 1, 0);
+        //moment().startOf('month');
       set(this, 'currentMonth', month);
     } else {
-      let month = moment().startOf('month');
+      let month = new Date(now.getFullYear(), now.getMonth(), 1, 0);
+      //moment().startOf('month');
       set(this, 'currentMonth', month);
     }
 
@@ -696,7 +704,8 @@ export default Ember.Component.extend({
   _moveToFromStep() {
     let [month] = get(this, '_dates') || Ember.A();
     if (month) {
-      set(this, 'currentMonth', month.clone().startOf('month'));
+      var startOfMonth = new Date(month.getFullYear(), month.getMonth(), 1);
+      set(this, 'currentMonth', startOfMonth);
     }
     set(this, 'isToStep', false);
   },
@@ -711,7 +720,8 @@ export default Ember.Component.extend({
   _moveToToStep() {
     let [,month] = get(this, '_dates') || Ember.A();
     if (month) {
-      set(this, 'currentMonth', month.clone().startOf('month'));
+      var startOfMonth = new Date(month.getFullYear(), month.getMonth(), 1);
+      set(this, 'currentMonth', startOfMonth);
     }
     set(this, 'isToStep', true);
   },
@@ -836,12 +846,26 @@ export default Ember.Component.extend({
 
     gotoNextMonth() {
       let month = get(this, 'currentMonth');
-      set(this, 'currentMonth', month.clone().add(1, 'month'));
+
+      var nextY = month.getFullYear();
+      var nextM = month.getMonth();
+
+      nextY = (nextM == 11) ? nextY + 1 : nextY;
+      nextM = (nextM == 11) ? 0 : nextM + 1;
+      
+      set(this, 'currentMonth', new Date(nextY, nextM, 1, 0));
     },
 
     gotoPreviousMonth() {
       let month = get(this, 'currentMonth');
-      set(this, 'currentMonth', month.clone().subtract(1, 'month'));
+
+      var prevY = month.getFullYear();
+      var prevM = month.getMonth();
+
+      prevY = (prevM == 0) ? prevY - 1 : prevY;
+      prevM = (prevM == 0) ? 11 : prevM - 1;
+
+      set(this, 'currentMonth', new Date(prevY, prevM, 1, 0));
     },
 
     selectDate(date) {
