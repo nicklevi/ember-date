@@ -83,6 +83,8 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
 
     thisWeek: function thisWeek() {
       var now = new Date();
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+
       var oneDay = 1000 * 60 * 60 * 24;
 
       var weekDay = now.getDay();
@@ -95,10 +97,12 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
 
     thisMonth: function thisMonth() {
       var now = new Date();
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+
       var lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
 
-      var start = new Date(now.getFullYear(), now.getMonth(), 1);
-      var end = new Date(now.getFullYear(), now.getMonth(), lastDayOfMonth);
+      var start = new Date(today.getFullYear(), today.getMonth(), 1);
+      var end = new Date(today.getFullYear(), today.getMonth(), lastDayOfMonth);
 
       return [start, end];
     }

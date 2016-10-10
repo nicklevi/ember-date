@@ -92,12 +92,14 @@ var ranges = {
   thisWeek: function()
   {
     var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+
     var oneDay = (1000*60*60*24);
 
     var weekDay = now.getDay();
 
     var start = new Date( today.getTime() - (weekDay * oneDay) );
-    var end = new Date( start.getTime() + (6 * oneDay));
+    var end = new Date( start.getTime() + (6 * oneDay) );
     
     return [start, end];
   },
@@ -105,11 +107,13 @@ var ranges = {
   thisMonth: function()
   {
     var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+
     var lastDayOfMonth = (new Date(now.getFullYear(), now.getMonth() + 1, 0))
                           .getDate();
 
-    var start = new Date( now.getFullYear(), now.getMonth(), 1 );
-    var end = new Date( now.getFullYear(), now.getMonth(), lastDayOfMonth);
+    var start = new Date( today.getFullYear(), today.getMonth(), 1 );
+    var end = new Date( today.getFullYear(), today.getMonth(), lastDayOfMonth);
     
     return [start, end];
   }
