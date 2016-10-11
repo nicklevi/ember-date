@@ -643,6 +643,17 @@ export default Ember.Component.extend({
       val = Ember.A();
     }
 
+    //convert string Date object
+    for(let i = 0; i < val.length; i++)
+    {
+      if(typeof val[i] == "string" && val[i].length)
+      {//check date format is valid
+        val[i] =  !isNaN(new Date(val[i]).getFullYear()) ? 
+                  new Date(val[i]) : 
+                  null;
+      }
+    }
+
     set(this, '_dates', val);
 
     var now = new Date();
@@ -710,10 +721,10 @@ export default Ember.Component.extend({
 
     if (elOffset > windowWidth) {
       let translate = elOffset - windowWidth + 10;
-      let style = new Ember.Handlebars.SafeString(`transform: translate(-${translate}px, 0)`);
-      set(this, 'translateX', style);
+      let style = `transform: translate(-${translate}px, 0)`;
+      set(this, 'translateX', Em.String.htmlSafe(style));
     } else {
-      set(this, 'translateX', null);
+      set(this, 'translateX', Em.String.htmlSafe(''));
     }
   },
 

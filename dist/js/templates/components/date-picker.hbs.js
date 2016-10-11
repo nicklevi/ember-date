@@ -9,11 +9,11 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
           "loc": {
             "source": null,
             "start": {
-              "line": 8,
+              "line": 7,
               "column": 0
             },
             "end": {
-              "line": 16,
+              "line": 14,
               "column": 0
             }
           }
@@ -30,7 +30,6 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
           var el1 = dom.createTextNode("\n  ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("button");
-          dom.setAttribute(el1, "data-test", "date-picker-toggle-button");
           var el2 = dom.createTextNode("\n    ");
           dom.appendChild(el1, el2);
           var el2 = dom.createComment("");
@@ -51,7 +50,7 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
           morphs[3] = dom.createMorphAt(element6, 1, 1);
           return morphs;
         },
-        statements: [["content", "dateRangeSeparator", ["loc", [null, [9, 2], [9, 24]]]], ["attribute", "class", ["concat", ["date-picker__button ", ["get", "buttonClasses", ["loc", [null, [11, 33], [11, 46]]]], ["subexpr", "if", [["get", "range", ["loc", [null, [11, 53], [11, 58]]]], " date-picker__button--range"], [], ["loc", [null, [11, 48], [11, 90]]]], ["subexpr", "if", [["get", "buttonToFocused", ["loc", [null, [11, 95], [11, 110]]]], " date-picker__button--focus"], [], ["loc", [null, [11, 90], [11, 142]]]]]]], ["element", "action", ["toggleOpenTo"], [], ["loc", [null, [13, 4], [13, 29]]]], ["content", "buttonToText", ["loc", [null, [14, 4], [14, 20]]]]],
+        statements: [["content", "dateRangeSeparator", ["loc", [null, [8, 2], [8, 24]]]], ["attribute", "class", ["concat", ["date-picker__button ", ["get", "buttonClasses", ["loc", [null, [10, 33], [10, 46]]]], ["subexpr", "if", [["get", "range", ["loc", [null, [10, 53], [10, 58]]]], " date-picker__button--range"], [], ["loc", [null, [10, 48], [10, 90]]]], ["subexpr", "if", [["get", "buttonToFocused", ["loc", [null, [10, 95], [10, 110]]]], " date-picker__button--focus"], [], ["loc", [null, [10, 90], [10, 142]]]]]]], ["element", "action", ["toggleOpenTo"], [], ["loc", [null, [11, 4], [11, 29]]]], ["content", "buttonToText", ["loc", [null, [12, 4], [12, 20]]]]],
         locals: [],
         templates: []
       };
@@ -65,11 +64,11 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
               "loc": {
                 "source": null,
                 "start": {
-                  "line": 49,
+                  "line": 47,
                   "column": 8
                 },
                 "end": {
-                  "line": 53,
+                  "line": 51,
                   "column": 8
                 }
               }
@@ -101,7 +100,7 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
               morphs[2] = dom.createMorphAt(element0, 1, 1);
               return morphs;
             },
-            statements: [["attribute", "class", ["concat", ["date-picker__options__button ", ["get", "option.classes", ["loc", [null, [50, 100], [50, 114]]]]]]], ["element", "action", [["get", "option.action", ["loc", [null, [50, 27], [50, 40]]]], ["get", "option.actionValue", ["loc", [null, [50, 41], [50, 59]]]]], [], ["loc", [null, [50, 18], [50, 61]]]], ["content", "option.label", ["loc", [null, [51, 12], [51, 28]]]]],
+            statements: [["attribute", "class", ["concat", ["date-picker__options__button ", ["get", "option.classes", ["loc", [null, [48, 100], [48, 114]]]]]]], ["element", "action", [["get", "option.action", ["loc", [null, [48, 27], [48, 40]]]], ["get", "option.actionValue", ["loc", [null, [48, 41], [48, 59]]]]], [], ["loc", [null, [48, 18], [48, 61]]]], ["content", "option.label", ["loc", [null, [49, 12], [49, 28]]]]],
             locals: ["option"],
             templates: []
           };
@@ -112,11 +111,11 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
             "loc": {
               "source": null,
               "start": {
-                "line": 47,
+                "line": 45,
                 "column": 4
               },
               "end": {
-                "line": 55,
+                "line": 53,
                 "column": 4
               }
             }
@@ -146,7 +145,7 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
             morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
             return morphs;
           },
-          statements: [["block", "each", [["get", "_options", ["loc", [null, [49, 16], [49, 24]]]]], [], 0, null, ["loc", [null, [49, 8], [53, 17]]]]],
+          statements: [["block", "each", [["get", "_options", ["loc", [null, [47, 16], [47, 24]]]]], [], 0, null, ["loc", [null, [47, 8], [51, 17]]]]],
           locals: [],
           templates: [child0]
         };
@@ -157,11 +156,11 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
           "loc": {
             "source": null,
             "start": {
-              "line": 18,
+              "line": 16,
               "column": 0
             },
             "end": {
-              "line": 57,
+              "line": 55,
               "column": 0
             }
           }
@@ -244,7 +243,7 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
           morphs[6] = dom.createMorphAt(element1, 3, 3);
           return morphs;
         },
-        statements: [["attribute", "class", ["concat", ["date-picker", ["subexpr", "if", [["get", "options", ["loc", [null, [19, 30], [19, 37]]]], " date-picker--options"], [], ["loc", [null, [19, 25], [19, 63]]]]]]], ["attribute", "style", ["get", "translateX", ["loc", [null, [19, 73], [19, 83]]]]], ["element", "action", ["gotoPreviousMonth"], [], ["loc", [null, [24, 84], [24, 114]]]], ["element", "action", ["gotoNextMonth"], [], ["loc", [null, [28, 86], [28, 112]]]], ["content", "titleText", ["loc", [null, [33, 10], [33, 23]]]], ["inline", "date-picker-month", [], ["month", ["subexpr", "@mut", [["get", "currentMonth", ["loc", [null, [39, 14], [39, 26]]]]], [], []], "selectedDates", ["subexpr", "@mut", [["get", "selectedDates", ["loc", [null, [40, 22], [40, 35]]]]], [], []], "selectDate", ["subexpr", "action", ["selectDate"], [], ["loc", [null, [41, 19], [41, 40]]]], "minDate", ["subexpr", "@mut", [["get", "minDate", ["loc", [null, [42, 16], [42, 23]]]]], [], []], "maxDate", ["subexpr", "@mut", [["get", "maxDate", ["loc", [null, [43, 16], [43, 23]]]]], [], []]], ["loc", [null, [38, 6], [44, 8]]]], ["block", "if", [["get", "options", ["loc", [null, [47, 10], [47, 17]]]]], [], 0, null, ["loc", [null, [47, 4], [55, 11]]]]],
+        statements: [["attribute", "class", ["concat", ["date-picker", ["subexpr", "if", [["get", "options", ["loc", [null, [17, 30], [17, 37]]]], " date-picker--options"], [], ["loc", [null, [17, 25], [17, 63]]]]]]], ["attribute", "style", ["get", "translateX", ["loc", [null, [17, 73], [17, 83]]]]], ["element", "action", ["gotoPreviousMonth"], [], ["loc", [null, [22, 84], [22, 114]]]], ["element", "action", ["gotoNextMonth"], [], ["loc", [null, [26, 86], [26, 112]]]], ["content", "titleText", ["loc", [null, [31, 10], [31, 23]]]], ["inline", "date-picker-month", [], ["month", ["subexpr", "@mut", [["get", "currentMonth", ["loc", [null, [37, 14], [37, 26]]]]], [], []], "selectedDates", ["subexpr", "@mut", [["get", "selectedDates", ["loc", [null, [38, 22], [38, 35]]]]], [], []], "selectDate", ["subexpr", "action", ["selectDate"], [], ["loc", [null, [39, 19], [39, 40]]]], "minDate", ["subexpr", "@mut", [["get", "minDate", ["loc", [null, [40, 16], [40, 23]]]]], [], []], "maxDate", ["subexpr", "@mut", [["get", "maxDate", ["loc", [null, [41, 16], [41, 23]]]]], [], []]], ["loc", [null, [36, 6], [42, 8]]]], ["block", "if", [["get", "options", ["loc", [null, [45, 10], [45, 17]]]]], [], 0, null, ["loc", [null, [45, 4], [53, 11]]]]],
         locals: [],
         templates: [child0]
       };
@@ -259,7 +258,7 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
             "column": 0
           },
           "end": {
-            "line": 57,
+            "line": 55,
             "column": 7
           }
         }
@@ -270,7 +269,6 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("button");
-        dom.setAttribute(el1, "data-test", "date-picker-toggle-button");
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
@@ -299,7 +297,7 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["attribute", "class", ["concat", ["date-picker__button ", ["get", "buttonClasses", ["loc", [null, [2, 31], [2, 44]]]], ["subexpr", "if", [["get", "range", ["loc", [null, [2, 51], [2, 56]]]], " date-picker__button--range"], [], ["loc", [null, [2, 46], [2, 88]]]], ["subexpr", "if", [["get", "buttonFocused", ["loc", [null, [2, 93], [2, 106]]]], " date-picker__button--focus"], [], ["loc", [null, [2, 88], [2, 138]]]]]]], ["element", "action", ["toggleOpen"], [], ["loc", [null, [4, 2], [4, 25]]]], ["content", "buttonText", ["loc", [null, [5, 2], [5, 16]]]], ["block", "if", [["get", "range", ["loc", [null, [8, 6], [8, 11]]]]], [], 0, null, ["loc", [null, [8, 0], [16, 7]]]], ["block", "if", [["get", "isOpen", ["loc", [null, [18, 6], [18, 12]]]]], [], 1, null, ["loc", [null, [18, 0], [57, 7]]]]],
+      statements: [["attribute", "class", ["concat", ["date-picker__button ", ["get", "buttonClasses", ["loc", [null, [2, 31], [2, 44]]]], ["subexpr", "if", [["get", "range", ["loc", [null, [2, 51], [2, 56]]]], " date-picker__button--range"], [], ["loc", [null, [2, 46], [2, 88]]]], ["subexpr", "if", [["get", "buttonFocused", ["loc", [null, [2, 93], [2, 106]]]], " date-picker__button--focus"], [], ["loc", [null, [2, 88], [2, 138]]]]]]], ["element", "action", ["toggleOpen"], [], ["loc", [null, [3, 2], [3, 25]]]], ["content", "buttonText", ["loc", [null, [4, 2], [4, 16]]]], ["block", "if", [["get", "range", ["loc", [null, [7, 6], [7, 11]]]]], [], 0, null, ["loc", [null, [7, 0], [14, 7]]]], ["block", "if", [["get", "isOpen", ["loc", [null, [16, 6], [16, 12]]]]], [], 1, null, ["loc", [null, [16, 0], [55, 7]]]]],
       locals: [],
       templates: [child0, child1]
     };
