@@ -202,7 +202,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
      * @public
      */
     buttonDateFormat: 'Y/m/d',
-    titleDateFormat: 'm-Y',
+    titleDateFormat: 'm - Y',
 
     pad: function pad(val) {
       if ((val + '').length < 2) return '0' + val;
@@ -213,36 +213,41 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       var self = this;
       var mapFormat = {
         'y': function y(date) {
+          //A two digit representation of a year
           return (date.getFullYear() + '').substring(2, 4);
         },
 
         'Y': function Y(date) {
+          //A full numeric representation of a year, 4 digits
           return date.getFullYear() + '';
         },
 
         'd': function d(date) {
+          //Day of the month, 2 digits with leading zeros
           return self.pad(date.getDate());
         },
 
         'm': function m(date) {
+          //Numeric representation of a month, with leading zeros
           return self.pad(date.getMonth() + 1);
+        },
+
+        'F': function F(date) {
+          //A full textual representation of a month
+          return date.getMonth() + 1;
         }
       };
 
-      var seprator = format.match(/[\/\.\-]/);
-      var parts = format.split(/[\/\.\-]/);
+      if (!date || isNaN(date.getFullYear())) return null;
+
       var result = [];
-
-      if (seprator.length != 1) throw new Error('Non supported format');
-
-      for (var i = 0; i < parts.length; i++) {
-        var part = mapFormat[parts[i]];
-        if (!part) throw new Error('Non supported format');
-
-        result.push(part(date));
+      for (var i = 0; i < format.length; i++) {
+        var letter = format[i];
+        var formater = format[letter];
+        result.push(formater ? formater(letter, date) : letter);
       }
 
-      return result.join(seprator[0]);
+      return result.join('');
     },
 
     /**
@@ -665,6 +670,11 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       var action = get(this, 'attrs.action');
       var vals = get(this, '_dates');
       var isRange = get(this, 'range');
+      var value = get(this, 'attrs.value');
+
+      if (value && value.update) {
+        value.update(this.formatDate(vals[0], 'Y-m-d'));
+      }
 
       if (action && isRange) {
         action(vals || null);

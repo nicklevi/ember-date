@@ -213,7 +213,7 @@ export default Ember.Component.extend({
    * @public
    */
   buttonDateFormat: 'Y/m/d',
-  titleDateFormat: 'm-Y',
+  titleDateFormat: 'm - Y',
   
   pad(val) {
     if((val + '').length < 2)
@@ -225,39 +225,43 @@ export default Ember.Component.extend({
     var self = this;
     var mapFormat = {
       'y': function(date){
+        //A two digit representation of a year
         return (date.getFullYear() + '').substring(2, 4);
       },
 
       'Y': function(date){
+        //A full numeric representation of a year, 4 digits
         return (date.getFullYear() + '');
       },
 
       'd': function(date){
+        //Day of the month, 2 digits with leading zeros
         return self.pad(date.getDate());
       },
 
       'm': function(date){
+        //Numeric representation of a month, with leading zeros
         return self.pad(date.getMonth() + 1);
+      },
+
+      'F': function(date){
+        //A full textual representation of a month
+        return date.getMonth() + 1;
       }
     };
 
-    var seprator = format.match(/[\/\.\-]/);
-    var parts = format.split(/[\/\.\-]/);
-    var result = [];
+    if( !date || isNaN(date.getFullYear()) )
+      return null;
 
-    if(seprator.length != 1)
-      throw new Error('Non supported format');
-
-    for(var i = 0; i < parts.length; i++)
+    let result = [];
+    for(let i = 0; i < format.length; i++)
     {
-      var part = mapFormat[parts[i]];
-      if(!part)
-        throw new Error('Non supported format');
-
-      result.push(part(date));
+      let letter    = format[i];
+      let formater  = format[letter];
+      result.push(formater ? formater(letter, date) : letter);
     }
 
-    return result.join(seprator[0]);
+    return result.join('');
   },
 
   /**
@@ -691,6 +695,12 @@ export default Ember.Component.extend({
     let action  = get(this, 'attrs.action');
     let vals    = get(this, '_dates');
     let isRange = get(this, 'range');
+    let value   = get(this, 'attrs.value');
+
+    if(value && value.update)
+    {
+      value.update(this.formatDate(vals[0], 'Y-m-d'));
+    }
 
     if (action && isRange) {
       action(vals || null);

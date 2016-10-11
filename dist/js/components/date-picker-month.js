@@ -129,6 +129,17 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
       return new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
     }),
 
+    _dayObject: function _dayObject(date) {
+      return {
+        date: date,
+        dateString: [date.getFullYear(), this.pad(date.getMonth() + 1), this.pad(date.getDate())].join('/'),
+        year: date.getFullYear(),
+        month: this.pad(date.getMonth() + 1),
+        day: this.pad(date.getDate()),
+        weekday: date.getDay() + 1
+      };
+    },
+
     /**
      * The currently displayed days in the calendar.
      * This will contain all the days of the current month,
@@ -162,39 +173,34 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
 
       var days = _ember['default'].A();
 
-      // start with days from previous month to fill up first week
-      var firstWeekday = currentMonth.getDay();
-      //for (let i = firstWeekday; i > 1; i--) {
-      for (var i = firstWeekday; i > 0; i--) {
-        days.push(null);
-      }
-
-      var fisrtDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
       var oneDay = 1000 * 60 * 60 * 24;
 
-      var day = new Date(fisrtDayOfMonth.getTime());
-      // create one day object for every day in the month
-      for (var i = 0; i < daysInMonth; i++) {
-        var dayObject = {
-          date: day,
-          dateString: [day.getFullYear(), this.pad(day.getMonth() + 1), this.pad(day.getDate())].join('/'),
-          year: day.getFullYear(),
-          month: this.pad(day.getMonth() + 1),
-          day: this.pad(day.getDate()),
-          weekday: day.getDay() + 1
-        };
-        days.push(dayObject);
-        //increment day by one
-        day = new Date(day.getTime() + oneDay);
-      }
+      var fisrtDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
 
       var lastDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+
+      // start with days from previous month to fill up first week
+      var firstWeekday = fisrtDayOfMonth.getDay();
+      //for (let i = firstWeekday; i > 1; i--) {
+      for (var i = firstWeekday; i > 0; i--) {
+        var day = new Date(fisrtDayOfMonth.getTime() - i * oneDay);
+        days.push(this._dayObject(day));
+        //days.push(null);
+      }
+
+      // create one day object for every day in current month
+      for (var i = 0; i < daysInMonth; i++) {
+        var day = new Date(fisrtDayOfMonth.getTime() + i * oneDay);
+        days.push(this._dayObject(day));
+      }
 
       // end with days from next month to fill up last week
       var lastWeekday = lastDayOfMonth.getDay();
       //for (let i = 1; i <= (7 - lastWeekday); i++) {
-      for (var i = 0; i < 6 - lastWeekday; i++) {
-        days.push(null);
+      for (var i = 1; i <= 6 - lastWeekday; i++) {
+        var day = new Date(lastDayOfMonth.getTime() + i * oneDay);
+        days.push(this._dayObject(day));
+        //days.push(null);
       }
 
       return days;
@@ -297,6 +303,7 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
       if (_minDate && _minDate.getTime() > day.getTime()) {
         return true;
       }
+
       return _maxDate && _maxDate.getTime() < day.getTime();
     },
 
