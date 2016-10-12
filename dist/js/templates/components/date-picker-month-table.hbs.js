@@ -138,7 +138,7 @@ define("ember-date/templates/components/date-picker-month-table", ["exports", "e
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
           return morphs;
         },
-        statements: [["block", "each", [["get", "daysInMonth", ["loc", [null, [14, 16], [14, 27]]]]], [], 0, null, ["loc", [null, [14, 8], [20, 17]]]]],
+        statements: [["block", "each", [["get", "daysInRow", ["loc", [null, [14, 16], [14, 25]]]]], [], 0, null, ["loc", [null, [14, 8], [20, 17]]]]],
         locals: ["daysInRow"],
         templates: [child0]
       };

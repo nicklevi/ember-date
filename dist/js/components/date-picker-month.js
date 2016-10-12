@@ -235,6 +235,19 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
       return days;
     }),
 
+    rowsInMonth: computed('daysInMonth', function () {
+      var days = get(this, 'daysInMonth');
+      var rows = [];
+
+      var rowsCount = Math.ceil(days.length / 7);
+
+      for (var i = 0; i < rowsCount; i++) {
+        rows.push(days.slice(i * 7, 7));
+      }
+
+      return rows;
+    }),
+
     datePickerDayClasses: function datePickerDayClasses(day) {
       var baseClass = 'date-picker__day';
       var isTodayClass = day.isToday ? ' ' + baseClass + '--today' : '';

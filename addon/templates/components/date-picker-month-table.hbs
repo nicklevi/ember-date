@@ -11,7 +11,7 @@
   <tbody>
     {{#each rowsInMonth as |daysInRow|}}
       <tr>
-        {{#each daysInMonth as |date|}}
+        {{#each daysInRow as |date|}}
           <td>
             <button class={{date.classes}} disabled={{date.disabled}} {{action 'selectDate' date.date}}>
               {{date.day}}

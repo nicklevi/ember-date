@@ -240,6 +240,20 @@ export default Ember.Component.extend({
     return days;
   }),
 
+  rowsInMonth: computed('daysInMonth', function() {
+    let days = get(this, 'daysInMonth');
+    let rows = [];
+    
+    let rowsCount = Math.ceil(days.length / 7);
+
+    for(let i = 0; i < rowsCount; i++)
+    {
+      rows.push( days.slice((i * 7), 7) );
+    }
+
+    return rows;
+  }),
+
 
   datePickerDayClasses(day) {
     let baseClass       = 'date-picker__day';
