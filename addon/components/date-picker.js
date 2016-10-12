@@ -215,6 +215,31 @@ export default Ember.Component.extend({
   buttonDateFormat: 'Y/m/d',
   titleDateFormat: 'm - Y',
   
+  weekdays: [
+    'Sun', 
+    'Mon', 
+    'Tue', 
+    'Wed', 
+    'Thu', 
+    'Fri', 
+    'Sat',
+  ],
+  
+  months: [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ],
+
   pad(val) {
     if((val + '').length < 2)
       return '0' + val;
@@ -246,7 +271,7 @@ export default Ember.Component.extend({
 
       'F': function(date){
         //A full textual representation of a month
-        return date.getMonth() + 1;
+        return this.get('months')[date.getMonth()];
       }
     };
 
@@ -256,9 +281,9 @@ export default Ember.Component.extend({
     let result = [];
     for(let i = 0; i < format.length; i++)
     {
-      let letter    = format[i];
-      let formater  = format[letter];
-      result.push(formater ? formater(letter, date) : letter);
+      let letter = format[i];
+      let formater = mapFormat[letter];
+      result.push(formater ? formater(date) : letter);
     }
 
     return result.join('');

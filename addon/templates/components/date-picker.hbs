@@ -18,18 +18,10 @@
     <div class="date-picker__calendar">
       <div class="date-picker__header">
 
-        <button
-          class="date-picker__header__button date-picker__header__button--previous" {{action 'gotoPreviousMonth'}}>
-          &lt;
-        </button>
+        <button class="date-picker__header__button date-picker__header__button--previous" {{action 'gotoPreviousMonth'}}></button>
+        <button class="date-picker__header__button date-picker__header__button--next" {{action 'gotoNextMonth'}}></button>
 
-        <button class="date-picker__header__button date-picker__header__button--next" {{action 'gotoNextMonth'}}>
-          &gt;
-        </button>
-
-        <div class="date-picker__header__title">
-          {{titleText}}
-        </div>
+        <div class="date-picker__header__title">{{titleText}}</div>
 
       </div>
 
@@ -39,6 +31,8 @@
         selectDate=(action 'selectDate')
         minDate=minDate
         maxDate=maxDate
+        weekdays=weekdays
+        months=months
       }}
     </div>
 

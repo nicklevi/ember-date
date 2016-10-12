@@ -204,6 +204,10 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
     buttonDateFormat: 'Y/m/d',
     titleDateFormat: 'm - Y',
 
+    weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+
+    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+
     pad: function pad(val) {
       if ((val + '').length < 2) return '0' + val;
       return '' + val;
@@ -234,7 +238,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
 
         'F': function F(date) {
           //A full textual representation of a month
-          return date.getMonth() + 1;
+          return this.get('months')[date.getMonth()];
         }
       };
 
@@ -243,8 +247,8 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       var result = [];
       for (var i = 0; i < format.length; i++) {
         var letter = format[i];
-        var formater = format[letter];
-        result.push(formater ? formater(letter, date) : letter);
+        var formater = mapFormat[letter];
+        result.push(formater ? formater(date) : letter);
       }
 
       return result.join('');

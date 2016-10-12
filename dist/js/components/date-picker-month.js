@@ -1,4 +1,4 @@
-define('ember-date/components/date-picker-month', ['exports', 'ember', '../templates/components/date-picker-month'], function (exports, _ember, _templatesComponentsDatePickerMonth) {
+define('ember-date/components/date-picker-month', ['exports', 'ember', '../templates/components/date-picker-month-table'], function (exports, _ember, _templatesComponentsDatePickerMonthTable) {
   'use strict';
 
   var get = _ember['default'].get;
@@ -17,7 +17,7 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
    * @public
    */
   exports['default'] = _ember['default'].Component.extend({
-    layout: _templatesComponentsDatePickerMonth['default'],
+    layout: _templatesComponentsDatePickerMonthTable['default'],
     classNames: ['date-picker__calendar__outer'],
 
     // ATTRIBUTES BEGIN ----------------------------------------
@@ -244,17 +244,10 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
 
       return '' + baseClass + isTodayClass + isSelectedClass + isDisabledClass + isInRangeClass;
     },
-    /**
-     * The localized weekdays, starting with *monday* Sunday.
-     *
-     * @property weekdays
-     * @type {String[]}
-     * @readOnly
-     * @private
-     */
-    weekdays: computed(function () {
-      return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    }),
+
+    weekStartDay: 0,
+    weekdays: [],
+    months: [],
 
     /**
      * The current day.

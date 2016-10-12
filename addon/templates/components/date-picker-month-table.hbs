@@ -1,0 +1,25 @@
+<table>
+
+  <thead>
+    <tr>
+    {{#each weekdays as |day|}}
+      <th>{{day}}</th>
+    {{/each}}
+    </tr>
+  </thead>
+  
+  <tbody>
+    {{#each rowsInMonth as |daysInRow|}}
+      <tr>
+        {{#each daysInMonth as |date|}}
+          <td>
+            <button class={{date.classes}} disabled={{date.disabled}} {{action 'selectDate' date.date}}>
+              {{date.day}}
+            </button>
+          </td>
+        {{/each}}
+      </tr>
+    {{/each}}
+  </tbody>
+
+</table>

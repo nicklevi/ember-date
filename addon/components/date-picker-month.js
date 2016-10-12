@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import layout from '../templates/components/date-picker-month';
+import layout from '../templates/components/date-picker-month-table';
 
 const { get, set, computed, getProperties } = Ember;
 
@@ -250,17 +250,10 @@ export default Ember.Component.extend({
 
     return `${baseClass}${isTodayClass}${isSelectedClass}${isDisabledClass}${isInRangeClass}`;
   },
-  /**
-   * The localized weekdays, starting with *monday* Sunday.
-   *
-   * @property weekdays
-   * @type {String[]}
-   * @readOnly
-   * @private
-   */
-  weekdays: computed(function() {
-    return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  }),
+
+  weekStartDay: 0,
+  weekdays: [],
+  months: [],
 
   /**
    * The current day.
@@ -309,7 +302,7 @@ export default Ember.Component.extend({
     if (_minDate && _minDate.getTime() > day.getTime()) {
       return true;
     }
-    
+
     return _maxDate && _maxDate.getTime() < day.getTime();
   },
 
