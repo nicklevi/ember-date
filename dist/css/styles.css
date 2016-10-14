@@ -1,14 +1,14 @@
-.date-picker-wrap{
+.date-picker{
   display: inline-block;
   position: relative;
   z-index: 10;
 }
 
-.date-picker-wrap.open {
+.date-picker.open {
   z-index: 11;
 }
 
-.date-picker {
+.date-picker-wrap {
   position: absolute;
   margin-top: 1px;
   background: white;

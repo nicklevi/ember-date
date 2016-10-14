@@ -120,7 +120,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
   exports['default'] = _ember['default'].Component.extend({
     layout: _templatesComponentsDatePicker['default'],
 
-    classNames: ['date-picker-input'],
+    classNames: ['date-picker'],
     classNameBindings: ['isOpen:open'],
 
     // ATTRIBUTES BEGIN ----------------------------------------

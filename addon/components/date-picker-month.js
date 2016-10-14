@@ -224,6 +224,7 @@ export default Ember.Component.extend({
    * @private
    */
   daysInMonth: computed('_daysInMonth', '_minDate', '_maxDate', 'selectedDates.[]', function() {
+    
     let days = get(this, '_daysInMonth');
 
     days.forEach((day) => {
