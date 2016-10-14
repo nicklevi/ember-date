@@ -12,7 +12,7 @@
   position: absolute;
   margin-top: 1px;
   background: white;
-  /*box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);*/
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   border-radius: 3px;
   font-size: 16px;
 }
@@ -63,33 +63,95 @@
   padding: 0;
   display: block;
   text-align: center;
+  font-size: 14px;
+}
+
+.date-picker .date-picker-wrap table td,
+.date-picker .date-picker-wrap table th {
+  min-width: 30px;
+  width: 30px;
+  vertical-align: middle;
+  text-align: center;
+  font-weight: normal;
+  font-size: 14px;
 }
 
 .date-picker .date-picker-wrap table td {
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
-  text-align: center;
+  min-height: 30px;
+  height: 30px;
+}
+
+.date-picker .date-picker-wrap table th {
+  color: #fff;
+  background-color: #333;
+  padding: 5px 0px;
+  box-sizing: border-box;
 }
 
 .date-picker table tr td button.day {
   width: 100%;
   height: 100%;
+  font-size: 14px;
+  border-radius: 3px;
 }
 
 .date-picker table tr td button.day:hover,
 .date-picker table tr td button.day:focus {
-  background: #ccc;
+  background: #f9f9f9;
   color: #000;
   outline: none;
 }
 
+.date-picker header {
+  color: #fff;
+  background-color: #333;
+  padding: 10px 0 5px;
+  position: relative;
+}
+
+.date-picker header button.prev,
+.date-picker header button.next 
+{
+  position: absolute;
+  top: 5px;
+  height: 26px;
+  width: 26px;
+  background-color: transparent;
+}
+
+.date-picker header button.prev:after,
+.date-picker header button.next:after {
+  position: absolute;
+  content: "";
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  width: 0;
+  height: 0;
+  top: 50%;
+  margin-top: -6px;
+  color: #fff;
+} 
+
+.date-picker header button.prev:after {
+  margin-left: -7px;
+  left: 50%;
+  border-left: none;
+  border-right: 14px solid #fff;
+}
+
+.date-picker header button.next:after {
+  margin-right: -7px;
+  right: 50%;
+  border-right: none;
+  border-left: 14px solid #fff;
+}
+
 .date-picker header button.prev {
-  float: left;
+  left: 2px;
 }
 
 .date-picker header button.next {
-  float: right;
+  right: 2px;
 }
 
 .date-picker__calendar__outer {
@@ -98,13 +160,15 @@
 
 
 .date-picker table tr td button.day.today {
-  color: dodgerblue;
+  font-weight: bold;
+  border: 1px solid #999;
+  border-radius: 50%;
+  background-color: #f9f9f9
 }
 
 .date-picker table tr td button.day.selected,
 .date-picker table tr td button.day.inrange {
-  background-color: #66afe9;
-  color: white;
+  background-color: #f9f9f9;
   font-weight: bold;
 }
 
@@ -115,7 +179,11 @@
 
 .date-picker table tr td button.day.disabled[disabled]:hover,
 .date-picker table tr td button.day.disabled[disabled]:focus {
-  background-color: #eee;
+  background-color: #f9f9f9;
+  color: #ccc;
+}
+
+.date-picker table tr td button.day.out {
   color: #ccc;
 }
 

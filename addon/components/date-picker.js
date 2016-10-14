@@ -690,8 +690,14 @@ export default Ember.Component.extend({
     {
       if(typeof val[i] == "string" && val[i].length)
       {//check date format is valid
-        val[i] =  !isNaN(new Date(val[i]).getFullYear()) ? 
+        let t = !isNaN(new Date(val[i]).getFullYear()) ? 
                   new Date(val[i]) : 
+                  null;
+
+        val[i] =  t ? 
+                  new Date(t.getFullYear(), 
+                           t.getMonth(), 
+                           t.getDate(), 0) :
                   null;
       }
     }

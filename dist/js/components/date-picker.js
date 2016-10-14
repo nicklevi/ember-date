@@ -650,7 +650,9 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       for (var i = 0; i < val.length; i++) {
         if (typeof val[i] == "string" && val[i].length) {
           //check date format is valid
-          val[i] = !isNaN(new Date(val[i]).getFullYear()) ? new Date(val[i]) : null;
+          var t = !isNaN(new Date(val[i]).getFullYear()) ? new Date(val[i]) : null;
+
+          val[i] = t ? new Date(t.getFullYear(), t.getMonth(), t.getDate(), 0) : null;
         }
       }
 
