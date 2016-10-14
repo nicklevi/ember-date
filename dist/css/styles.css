@@ -1,10 +1,10 @@
-.date-picker-input{
+.date-picker-wrap{
   display: inline-block;
   position: relative;
   z-index: 10;
 }
 
-.date-picker-input.open {
+.date-picker-wrap.open {
   z-index: 11;
 }
 
