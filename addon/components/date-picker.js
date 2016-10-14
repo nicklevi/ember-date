@@ -131,7 +131,7 @@ var ranges = {
 export default Ember.Component.extend({
   layout,
 
-  classNames: ['date-picker'],
+  classNames: ['date-picker-input'],
   classNameBindings: ['isOpen:open'],
 
   // ATTRIBUTES BEGIN ----------------------------------------
@@ -201,8 +201,21 @@ export default Ember.Component.extend({
    * @optional
    * @public
    */
-  buttonClasses: 'date-picker-input',
+  buttonClasses: 'data-picker-button',
 
+  buttonFromClasses: computed('buttonClasses', 'buttonFocused', 'range', function(){
+    let base = this.get('buttonClasses');
+    let focused = this.get('buttonFocused') ? ' focus' : '';
+    let range = this.get('range') ? ' range' : '';
+    return `${base}${focused}${range}`;
+  }),
+
+  buttonToClasses: computed('buttonClasses', 'buttonToFocused', 'range', function(){
+    let base = this.get('buttonClasses');
+    let focused = this.get('buttonToFocused') ? ' focus' : '';
+    let range = this.get('range') ? ' range' : '';
+    return `${base}${focused}${range}`;
+  }),
   /**
    * The date format which should be used for the button.
    * Defaults to localized 'L'.

@@ -120,7 +120,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
   exports['default'] = _ember['default'].Component.extend({
     layout: _templatesComponentsDatePicker['default'],
 
-    classNames: ['date-picker'],
+    classNames: ['date-picker-input'],
     classNameBindings: ['isOpen:open'],
 
     // ATTRIBUTES BEGIN ----------------------------------------
@@ -190,8 +190,21 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
      * @optional
      * @public
      */
-    buttonClasses: 'date-picker-input',
+    buttonClasses: 'data-picker-button',
 
+    buttonFromClasses: computed('buttonClasses', 'buttonFocused', 'range', function () {
+      var base = this.get('buttonClasses');
+      var focused = this.get('buttonFocused') ? ' focus' : '';
+      var range = this.get('range') ? ' range' : '';
+      return '' + base + focused + range;
+    }),
+
+    buttonToClasses: computed('buttonClasses', 'buttonToFocused', 'range', function () {
+      var base = this.get('buttonClasses');
+      var focused = this.get('buttonToFocused') ? ' focus' : '';
+      var range = this.get('range') ? ' range' : '';
+      return '' + base + focused + range;
+    }),
     /**
      * The date format which should be used for the button.
      * Defaults to localized 'L'.

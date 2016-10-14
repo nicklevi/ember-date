@@ -1,14 +1,10 @@
-<button
-  class="{{buttonClasses}}{{if range ' range'}}{{if buttonFocused ' focus'}}"
-  {{action 'toggleOpen'}}>
+<button class={{buttonFromClasses}} {{action 'toggleOpen'}}>
   {{buttonText}}
 </button>
 
 {{#if range}}
   {{dateRangeSeparator}}
-  <button
-    class="{{buttonClasses}}{{if range ' range'}}{{if buttonToFocused ' focus'}}"
-    {{action 'toggleOpenTo'}}>
+  <button class={{buttonToClasses}} {{action 'toggleOpenTo'}}>
     {{buttonToText}}
   </button>
 {{/if}}
