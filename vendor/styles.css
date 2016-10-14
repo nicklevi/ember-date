@@ -1,27 +1,24 @@
-.date-picker__wrapper {
+.date-picker{
   display: inline-block;
   position: relative;
   z-index: 10;
 }
 
-.date-picker__wrapper--open {
+.date-picker.open {
   z-index: 11;
 }
 
-.date-picker {
+.date-picker-wrap {
   position: absolute;
   margin-top: 1px;
-  /*padding: 15px;*/
   background: white;
-  /*box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);*/
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   border-radius: 3px;
   font-size: 16px;
 }
 
-.date-picker__button {
+.date-picker-button {
   /* input styles */
-/*  min-width: 110px;
-  text-align: center;*/
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
   transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
   border: 1px solid #ccc;
@@ -38,27 +35,25 @@
   background-color: #fff;
 }
 
-.date-picker__button--focus {
+.date-picker-button.focus {
   /* input focus styles */
-  /*border-color: dodgerblue;*/
   border-color: rgba(82, 168, 236, 0.8);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
   outline: 0 none;
 }
 
-.date-picker__header {
+.date-picker header {
   text-align: center;
   /*margin-bottom: 10px;*/
   clear: both;
 }
 
-.date-picker__header__title {
+.date-picker header .title {
   font-weight: bold;
   font-size: 1em;
-  /*line-height: 30px;*/
 }
 
-.date-picker__header__button {
+.date-picker .date-picker-wrap button {
   cursor: pointer;
   box-shadow: none;
   outline:    none;
@@ -66,144 +61,155 @@
   border: none;
   margin: 0;
   padding: 0;
-  width: 14.2857142857%; /* 100% / 7 */
-  display: inline-block;
-  /*border: 1px solid #aaa;
-  padding: 3px 15px;
-  border-radius: 3px;*/
-}
-
-.date-picker__header__button:hover,
-.date-picker__header__button:focus {
-  background: #ccc;
-  color: #000;
-  border-color: #ccc;
-}
-
-.date-picker__header__button--previous {
-  float: left;
-}
-
-.date-picker__header__button--next {
-  float: right;
-}
-
-.date-picker__calendar__outer {
-  width: 250px;
-}
-
-.date-picker__weekdays {
-  clear: both;
-}
-
-.date-picker__weekdays:after,
-.date-picker__calendar:after {
-  content: '';
-  clear: left;
   display: block;
-}
-
-.date-picker__day,
-.date-picker__weekday,
-.date-picker__day__placeholder {
-  display: inline-block;
-  width: 14.2857142857%; /* 100% / 7 */
-  margin: 0;
-  padding: 0;
-  float: left;
   text-align: center;
-  min-height: 1px;
+  font-size: 14px;
 }
 
-.date-picker__weekday {
-  font-size: 0.9em;
+.date-picker .date-picker-wrap table {
+  border-spacing: 0;
+  border-collapse: collapse;
 }
 
-.date-picker__day {
-  position: relative;
-  border: 0;
-  box-shadow: none;
-  background: none;
-  background-color: #eee;
+.date-picker .date-picker-wrap table td,
+.date-picker .date-picker-wrap table th {
+  padding: 0;
+}
+
+.date-picker .date-picker-wrap table td,
+.date-picker .date-picker-wrap table th {
+  min-width: 30px;
+  width: 30px;
+  vertical-align: middle;
+  text-align: center;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.date-picker .date-picker-wrap table td {
+  min-height: 30px;
+  height: 30px;
+}
+
+.date-picker .date-picker-wrap table th {
+  color: #fff;
+  background-color: #333;
+  padding: 5px 0px;
+  box-sizing: border-box;
+}
+
+.date-picker table tr td button.day {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
   border-radius: 3px;
-
-  border-color: white;
-  border-style: solid;
-
-  border-top-width: 1px;
-  border-left-width: 1px;
 }
 
-.date-picker__day:nth-child(7n) {
-  border-right-width: 1px;
-}
-
-.date-picker__day:last-of-type {
-  border-right-width: 1px;
-}
-
-/*.date-picker__day ~ .date-picker__day__placeholder {
-  border-top: 1px solid white;
-}*/
-
-/*.date-picker__day:nth-last-child(-n+7) {
-  border-bottom-width: 1px;
-}*/
-
-.date-picker__day:hover,
-.date-picker__day:focus {
-  background-color: #ccc;
+.date-picker button.day:hover,
+.date-picker button.day:focus {
+  background: #f9f9f9;
   color: #000;
   outline: none;
 }
 
-.date-picker__day--today {
-  color: dodgerblue;
+.date-picker header {
+  color: #fff;
+  background-color: #333;
+  padding: 10px 0 5px;
+  position: relative;
 }
 
-.date-picker__day--today.date-picker__day--selected,
-.date-picker__day--today.date-picker__day--in-range {
-  color: black;
+.date-picker header button.prev,
+.date-picker header button.next 
+{
+  position: absolute;
+  top: 5px;
+  height: 26px;
+  width: 26px;
+  background-color: transparent;
 }
 
-.date-picker__day--selected {
-  background-color: dodgerblue;
-  color: white;
+.date-picker header button.prev:after,
+.date-picker header button.next:after {
+  position: absolute;
+  content: "";
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  width: 0;
+  height: 0;
+  top: 50%;
+  margin-top: -6px;
+  color: #fff;
+} 
+
+.date-picker header button.prev:after {
+  margin-left: -7px;
+  left: 50%;
+  border-left: none;
+  border-right: 14px solid #fff;
+}
+
+.date-picker header button.next:after {
+  margin-right: -7px;
+  right: 50%;
+  border-right: none;
+  border-left: 14px solid #fff;
+}
+
+.date-picker header button.prev {
+  left: 2px;
+}
+
+.date-picker header button.next {
+  right: 2px;
+}
+
+.date-picker__calendar__outer {
+  /*width: 250px;*/
+}
+
+.date-picker button.day.today {
+  font-weight: bold;
+  background-color: #f9f9f9
+}
+
+.date-picker button.day.selected,
+.date-picker button.day.inrange {
+  background-color: #f9f9f9;
   font-weight: bold;
 }
 
-.date-picker__day--disabled[disabled] {
+.date-picker button.day.disabled[disabled] {
   color: #ccc;
   cursor: auto;
 }
 
-.date-picker__day--disabled[disabled]:hover,
-.date-picker__day--disabled[disabled]:focus {
-  background-color: #eee;
+.date-picker button.day.disabled[disabled]:hover,
+.date-picker button.day.disabled[disabled]:focus {
+  background-color: #f9f9f9;
   color: #ccc;
 }
 
-.date-picker__day--in-range {
-  background-color: #66afe9;
-  color: white;
+.date-picker button.day.out {
+  color: #ccc;
 }
 
-.date-picker--options {
+.date-picker .options {
   white-space: nowrap;
 }
 
-.date-picker--options .date-picker__calendar {
+.date-picker.options .calendar {
   display: inline-block;
   vertical-align: top;
 }
 
-.date-picker__options {
+.date-picker.options {
   display: inline-block;
   vertical-align: top;
   margin-left: 20px;
 }
 
-.date-picker__options__button {
+.date-picker .options button.option {
   display: block;
   width: 100%;
   margin: 0 0 10px 0;

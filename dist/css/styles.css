@@ -66,6 +66,16 @@
   font-size: 14px;
 }
 
+.date-picker .date-picker-wrap table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.date-picker .date-picker-wrap table td,
+.date-picker .date-picker-wrap table th {
+  padding: 0;
+}
+
 .date-picker .date-picker-wrap table td,
 .date-picker .date-picker-wrap table th {
   min-width: 30px;
@@ -95,8 +105,8 @@
   border-radius: 3px;
 }
 
-.date-picker table tr td button.day:hover,
-.date-picker table tr td button.day:focus {
+.date-picker button.day:hover,
+.date-picker button.day:focus {
   background: #f9f9f9;
   color: #000;
   outline: none;
@@ -158,35 +168,31 @@
   /*width: 250px;*/
 }
 
-
-.date-picker table tr td button.day.today {
+.date-picker button.day.today {
   font-weight: bold;
-  border: 1px solid #999;
-  border-radius: 50%;
   background-color: #f9f9f9
 }
 
-.date-picker table tr td button.day.selected,
-.date-picker table tr td button.day.inrange {
+.date-picker button.day.selected,
+.date-picker button.day.inrange {
   background-color: #f9f9f9;
   font-weight: bold;
 }
 
-.date-picker table tr td button.day.disabled[disabled] {
+.date-picker button.day.disabled[disabled] {
   color: #ccc;
   cursor: auto;
 }
 
-.date-picker table tr td button.day.disabled[disabled]:hover,
-.date-picker table tr td button.day.disabled[disabled]:focus {
+.date-picker button.day.disabled[disabled]:hover,
+.date-picker button.day.disabled[disabled]:focus {
   background-color: #f9f9f9;
   color: #ccc;
 }
 
-.date-picker table tr td button.day.out {
+.date-picker button.day.out {
   color: #ccc;
 }
-
 
 .date-picker .options {
   white-space: nowrap;
