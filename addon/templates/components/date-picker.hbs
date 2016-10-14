@@ -1,5 +1,5 @@
 <button
-  class="date-picker__button {{buttonClasses}}{{if range ' date-picker__button--range'}}{{if buttonFocused ' date-picker__button--focus'}}"
+  class="{{buttonClasses}}{{if range ' range'}}{{if buttonFocused ' focus'}}"
   {{action 'toggleOpen'}}>
   {{buttonText}}
 </button>
@@ -7,23 +7,24 @@
 {{#if range}}
   {{dateRangeSeparator}}
   <button
-    class="date-picker__button {{buttonClasses}}{{if range ' date-picker__button--range'}}{{if buttonToFocused ' date-picker__button--focus'}}"
+    class="{{buttonClasses}}{{if range ' range'}}{{if buttonToFocused ' focus'}}"
     {{action 'toggleOpenTo'}}>
     {{buttonToText}}
   </button>
 {{/if}}
 
 {{#if isOpen}}
-  <div class="date-picker{{if options ' date-picker--options'}}" style={{translateX}}>
-    <div class="date-picker__calendar">
-      <div class="date-picker__header">
+  <div class="date-picker{{if options ' options'}}" style={{translateX}}>
+    <div class="calendar">
 
-        <button class="date-picker__header__button date-picker__header__button--previous" {{action 'gotoPreviousMonth'}}></button>
-        <button class="date-picker__header__button date-picker__header__button--next" {{action 'gotoNextMonth'}}></button>
+      <header>
 
-        <div class="date-picker__header__title">{{titleText}}</div>
+        <button class="prev" {{action 'gotoPreviousMonth'}}></button>
+        <button class="next" {{action 'gotoNextMonth'}}></button>
 
-      </div>
+        <div class="title">{{titleText}}</div>
+
+      </header>
 
       {{date-picker-month
         month=currentMonth
@@ -37,9 +38,9 @@
     </div>
 
     {{#if options}}
-      <div class="date-picker__options">
+      <div class="options">
         {{#each _options as |option|}}
-          <button {{action option.action option.actionValue}} class="date-picker__options__button {{option.classes}}">
+          <button {{action option.action option.actionValue}} class="option {{option.classes}}">
             {{option.label}}
           </button>
         {{/each}}

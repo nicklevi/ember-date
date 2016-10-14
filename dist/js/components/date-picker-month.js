@@ -18,7 +18,7 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
    */
   exports['default'] = _ember['default'].Component.extend({
     layout: _templatesComponentsDatePickerMonthTable['default'],
-    classNames: ['date-picker__calendar__outer'],
+    classNames: ['calendar'],
 
     // ATTRIBUTES BEGIN ----------------------------------------
 
@@ -242,18 +242,20 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
       var rowsCount = Math.ceil(days.length / 7);
 
       for (var i = 0; i < rowsCount; i++) {
-        rows.push(days.slice(i * 7, 7));
+        var start = i * 7;
+        var end = start + 7;
+        rows.push(days.slice(start, end));
       }
 
       return rows;
     }),
 
     datePickerDayClasses: function datePickerDayClasses(day) {
-      var baseClass = 'date-picker__day';
-      var isTodayClass = day.isToday ? ' ' + baseClass + '--today' : '';
-      var isSelectedClass = day.isSelected ? ' ' + baseClass + '--selected' : '';
-      var isDisabledClass = day.isDisabled ? ' ' + baseClass + '--disabled' : '';
-      var isInRangeClass = day.isInRange ? ' ' + baseClass + '--in-range' : '';
+      var baseClass = 'day';
+      var isTodayClass = day.isToday ? ' today' : '';
+      var isSelectedClass = day.isSelected ? ' selected' : '';
+      var isDisabledClass = day.isDisabled ? ' disabled' : '';
+      var isInRangeClass = day.isInRange ? ' inrange' : '';
 
       return '' + baseClass + isTodayClass + isSelectedClass + isDisabledClass + isInRangeClass;
     },

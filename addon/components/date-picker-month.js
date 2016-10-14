@@ -15,7 +15,7 @@ const { get, set, computed, getProperties } = Ember;
  */
 export default Ember.Component.extend({
   layout,
-  classNames: ['date-picker__calendar__outer'],
+  classNames: ['calendar'],
 
   // ATTRIBUTES BEGIN ----------------------------------------
 
@@ -248,7 +248,9 @@ export default Ember.Component.extend({
 
     for(let i = 0; i < rowsCount; i++)
     {
-      rows.push( days.slice((i * 7), 7) );
+      let start = i * 7;
+      let end   = start + 7;
+      rows.push( days.slice(start, end) );
     }
 
     return rows;
@@ -256,11 +258,11 @@ export default Ember.Component.extend({
 
 
   datePickerDayClasses(day) {
-    let baseClass       = 'date-picker__day';
-    let isTodayClass    = day.isToday         ? ` ${baseClass}--today`    : '';
-    let isSelectedClass = day.isSelected      ? ` ${baseClass}--selected` : '';
-    let isDisabledClass = day.isDisabled      ? ` ${baseClass}--disabled` : '';
-    let isInRangeClass  = day.isInRange       ? ` ${baseClass}--in-range` : '';
+    let baseClass       = 'day';
+    let isTodayClass    = day.isToday         ? ' today'    : '';
+    let isSelectedClass = day.isSelected      ? ' selected' : '';
+    let isDisabledClass = day.isDisabled      ? ' disabled' : '';
+    let isInRangeClass  = day.isInRange       ? ' inrange'  : '';
 
     return `${baseClass}${isTodayClass}${isSelectedClass}${isDisabledClass}${isInRangeClass}`;
   },

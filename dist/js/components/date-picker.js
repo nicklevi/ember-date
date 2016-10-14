@@ -120,8 +120,8 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
   exports['default'] = _ember['default'].Component.extend({
     layout: _templatesComponentsDatePicker['default'],
 
-    classNames: ['date-picker__wrapper'],
-    classNameBindings: ['isOpen:date-picker__wrapper--open'],
+    classNames: ['date-picker-input'],
+    classNameBindings: ['isOpen:open'],
 
     // ATTRIBUTES BEGIN ----------------------------------------
 
@@ -190,7 +190,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
      * @optional
      * @public
      */
-    buttonClasses: '',
+    buttonClasses: 'date-picker-input',
 
     /**
      * The date format which should be used for the button.
@@ -202,7 +202,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
      * @public
      */
     buttonDateFormat: 'Y/m/d',
-    titleDateFormat: 'm - Y',
+    titleDateFormat: 'F Y',
 
     weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 
@@ -238,7 +238,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
 
         'F': function F(date) {
           //A full textual representation of a month
-          return this.get('months')[date.getMonth()];
+          return self.get('months')[date.getMonth()];
         }
       };
 
@@ -903,7 +903,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
           return;
         }
         var $target = _ember['default'].$(e.target);
-        if (!$target.hasClass('date-picker__day') && !$target.closest($element).length) {
+        if (!$target.hasClass('day') && !$target.closest($element).length) {
           _this._close();
         }
       });

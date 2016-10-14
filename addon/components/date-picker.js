@@ -131,8 +131,8 @@ var ranges = {
 export default Ember.Component.extend({
   layout,
 
-  classNames: ['date-picker__wrapper'],
-  classNameBindings: ['isOpen:date-picker__wrapper--open'],
+  classNames: ['date-picker-input'],
+  classNameBindings: ['isOpen:open'],
 
   // ATTRIBUTES BEGIN ----------------------------------------
 
@@ -201,7 +201,7 @@ export default Ember.Component.extend({
    * @optional
    * @public
    */
-  buttonClasses: '',
+  buttonClasses: 'date-picker-input',
 
   /**
    * The date format which should be used for the button.
@@ -213,7 +213,7 @@ export default Ember.Component.extend({
    * @public
    */
   buttonDateFormat: 'Y/m/d',
-  titleDateFormat: 'm - Y',
+  titleDateFormat: 'F Y',
   
   weekdays: [
     'Sun', 
@@ -271,7 +271,7 @@ export default Ember.Component.extend({
 
       'F': function(date){
         //A full textual representation of a month
-        return this.get('months')[date.getMonth()];
+        return self.get('months')[date.getMonth()];
       }
     };
 
@@ -940,7 +940,7 @@ export default Ember.Component.extend({
         return;
       }
       let $target = Ember.$(e.target);
-      if (!$target.hasClass('date-picker__day') && !$target.closest($element).length) {
+      if (!$target.hasClass('day') && !$target.closest($element).length) {
         this._close();
       }
     });
