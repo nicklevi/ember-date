@@ -17,7 +17,7 @@
   font-size: 16px;
 }
 
-.date-picker {
+.date-picker-button {
   /* input styles */
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
   transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
@@ -35,7 +35,7 @@
   background-color: #fff;
 }
 
-.date-picker.focus {
+.date-picker-button.focus {
   /* input focus styles */
   border-color: rgba(82, 168, 236, 0.8);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
@@ -53,7 +53,7 @@
   font-size: 1em;
 }
 
-.date-picker button {
+.date-picker .date-picker-wrap button {
   cursor: pointer;
   box-shadow: none;
   outline:    none;
@@ -62,6 +62,13 @@
   margin: 0;
   padding: 0;
   display: block;
+  text-align: center;
+}
+
+.date-picker .date-picker-wrap table td {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
   text-align: center;
 }
 

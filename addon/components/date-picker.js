@@ -201,7 +201,7 @@ export default Ember.Component.extend({
    * @optional
    * @public
    */
-  buttonClasses: 'data-picker-button',
+  buttonClasses: 'date-picker-button',
 
   buttonFromClasses: computed('buttonClasses', 'buttonFocused', 'range', function(){
     let base = this.get('buttonClasses');

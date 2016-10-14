@@ -190,7 +190,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
      * @optional
      * @public
      */
-    buttonClasses: 'data-picker-button',
+    buttonClasses: 'date-picker-button',
 
     buttonFromClasses: computed('buttonClasses', 'buttonFocused', 'range', function () {
       var base = this.get('buttonClasses');
