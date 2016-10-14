@@ -17,7 +17,7 @@
   font-size: 16px;
 }
 
-.date-picker-input {
+.date-picker {
   /* input styles */
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
   transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
@@ -35,7 +35,7 @@
   background-color: #fff;
 }
 
-.date-picker-input.focus {
+.date-picker.focus {
   /* input focus styles */
   border-color: rgba(82, 168, 236, 0.8);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);

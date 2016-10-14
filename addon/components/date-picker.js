@@ -131,7 +131,7 @@ var ranges = {
 export default Ember.Component.extend({
   layout,
 
-  classNames: ['date-picker-input'],
+  classNames: ['date-picker'],
   classNameBindings: ['isOpen:open'],
 
   // ATTRIBUTES BEGIN ----------------------------------------
