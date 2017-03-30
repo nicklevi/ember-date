@@ -362,7 +362,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
     buttonText: computed('range', '_dates.[]', function () {
       var isRange = get(this, 'range');
       var vals = get(this, '_dates') || _ember['default'].A([]);
-      var dateFormat = get(this, 'buttonDateFormat');
+      var dateFormat = get(this, 'buttonDateFormat').toString();
 
       var dateFrom = vals[0];
 
