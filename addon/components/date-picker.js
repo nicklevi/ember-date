@@ -397,7 +397,7 @@ export default Ember.Component.extend({
   buttonText: computed('range', '_dates.[]', function() {
     let isRange = get(this, 'range');
     let vals = get(this, '_dates') || Ember.A([]);
-    let dateFormat = get(this, 'buttonDateFormat');
+    let dateFormat = get(this, 'buttonDateFormat').toString();
 
     let [dateFrom] = vals;
 

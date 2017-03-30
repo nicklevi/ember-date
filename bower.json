@@ -1,6 +1,6 @@
 {
   "name": "ember-date",
-  "version": "1.13.11",
+  "version": "1.13.11.5",
   "homepage": "https://github.com/igorgoroshit/ember-date",
   "authors": [
     "Igor Goroshit <igor@webt.co.il>"
@@ -17,9 +17,12 @@
   "private": true,
   "ignore": [
     "**/.*",
+    "**/.md",
+    "**/.php",
+    "config",
+    "tests",
     "node_modules",
     "bower_components",
-    "test",
     "tests"
   ]
 }
