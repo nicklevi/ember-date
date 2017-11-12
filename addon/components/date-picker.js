@@ -691,7 +691,7 @@ export default Ember.Component.extend({
       if(typeof val[i] == "string" && val[i].length)
       {//check date format is valid
         let t = !isNaN(new Date(val[i]).getFullYear()) ? 
-                  new Date(val[i]) : 
+                  new Date(val[i]+" 00:00:00") : 
                   null;
 
         val[i] =  t ? 
@@ -701,7 +701,7 @@ export default Ember.Component.extend({
                   null;
       }
     }
-
+    
     set(this, '_dates', val);
 
     var now = new Date();
