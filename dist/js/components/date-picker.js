@@ -649,10 +649,9 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       //convert string Date object
       for (var i = 0; i < val.length; i++) {
         if (typeof val[i] == "string" && val[i].length) {
-          //check date format is valid
-          var t = !isNaN(new Date(val[i]).getFullYear()) ? new Date(val[i]+" 00:00:00") : null;
-
-          val[i] = t ? new Date(t.getFullYear(), t.getMonth(), t.getDate(), 0) : null;
+         var temp = val[i].replace(/-/gi,'/');
+          var t = !isNaN(new Date().getFullYear(temp)) ? new Date(temp) : null;
+          val[i] = t ? new Date(temp) : null;
         }
       }
 
@@ -692,7 +691,8 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       var value = get(this, 'attrs.value');
 
       if (value && value.update) {
-        value.update(this.formatDate(vals[0], 'Y-m-d'));
+        value.value = this.formatDate(vals[0], 'Y-m-d');
+        value.update(value.value);
       }
 
       if (action && isRange) {

@@ -690,15 +690,9 @@ export default Ember.Component.extend({
     {
       if(typeof val[i] == "string" && val[i].length)
       {//check date format is valid
-        let t = !isNaN(new Date(val[i]).getFullYear()) ? 
-                  new Date(val[i]+" 00:00:00") : 
-                  null;
-
-        val[i] =  t ? 
-                  new Date(t.getFullYear(), 
-                           t.getMonth(), 
-                           t.getDate(), 0) :
-                  null;
+        var temp = val[i].replace(/-/gi,'/');
+          var t = !isNaN(new Date().getFullYear(temp)) ? new Date(temp) : null;
+          val[i] = t ? new Date(temp) : null;
       }
     }
     
@@ -743,7 +737,8 @@ export default Ember.Component.extend({
 
     if(value && value.update)
     {
-      value.update(this.formatDate(vals[0], 'Y-m-d'));
+      value.value = this.formatDate(vals[0], 'Y-m-d');
+        value.update(value.value);
     }
 
     if (action && isRange) {
