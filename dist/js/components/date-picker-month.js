@@ -174,7 +174,6 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
       var days = _ember['default'].A();
 
       var oneDay = (1000 * 60 * 60 * 24);
-      var twelveHours = (1000 * 60 * 60 * 12);
       var fisrtDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
 
       var lastDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
@@ -184,7 +183,7 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
       
       //for (let i = firstWeekday; i > 1; i--) {
       for (var i = firstWeekday; i > 0; i--) {
-        var day = new Date((fisrtDayOfMonth.getTime() - i * oneDay)+twelveHours);
+        var day = new Date((fisrtDayOfMonth.getTime() - i * oneDay)+(1000 * 60 * 60 * 6));
          
         days.push(this._dayObject(day));
         //days.push(null);
@@ -192,7 +191,7 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
   
       // create one day object for every day in current month
       for (var i = 0; i < daysInMonth; i++) {
-        var day = new Date((fisrtDayOfMonth.getTime() + i * oneDay)+twelveHours);
+        var day = new Date((fisrtDayOfMonth.getTime() + i * oneDay)+(1000 * 60 * 60 * 6));
         days.push(this._dayObject(day));
       }
     
@@ -200,7 +199,7 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
       var lastWeekday = lastDayOfMonth.getDay();
       //for (let i = 1; i <= (7 - lastWeekday); i++) {
       for (var i = 1; i <= 6 - lastWeekday; i++) {
-        var day = new Date((lastDayOfMonth.getTime() + i * oneDay)+twelveHours);
+        var day = new Date((lastDayOfMonth.getTime() + i * oneDay)+(1000 * 60 * 60 * 6));
         days.push(this._dayObject(day));
         //days.push(null);
       }
