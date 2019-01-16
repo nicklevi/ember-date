@@ -44,3 +44,6 @@
     {{/if}}
   </div>
 {{/if}}
+{{#if isRequired}}
+  <input type="text" name="ember-date-select-date-hidden-input" value="{{value}}" required="required">
+{{/if}}
