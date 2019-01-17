@@ -47,3 +47,7 @@
 {{#if isRequired}}
   <input type="text" name="ember-date-select-date-hidden-input" value="{{value}}" required="required">
 {{/if}}
+
+{{#if error}}
+  <input type="text" name="ember-date-error-date-hidden-input" value="" data-parsley-required-message="{{error}}" required="required">
+{{/if}}
