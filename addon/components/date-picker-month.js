@@ -176,7 +176,7 @@ export default Ember.Component.extend({
     let days = Ember.A();
 
     let oneDay = (1000*60*60*24);
-
+    let twelveHours = (1000 * 60 * 60 * 12);
     let fisrtDayOfMonth = new Date(currentMonth.getFullYear(), 
                                    currentMonth.getMonth(), 
                                    1);
@@ -189,7 +189,7 @@ export default Ember.Component.extend({
     let firstWeekday = fisrtDayOfMonth.getDay();
     //for (let i = firstWeekday; i > 1; i--) {
     for (let i = firstWeekday; i > 0; i--) {
-      let day = new Date(fisrtDayOfMonth.getTime() - (i * oneDay));
+      let day = new Date(fisrtDayOfMonth.getTime() - (i * oneDay) + twelveHours);
       days.push(this._dayObject(day));
       //days.push(null);
     }
@@ -197,7 +197,7 @@ export default Ember.Component.extend({
     // create one day object for every day in current month
     for (let i = 0; i < daysInMonth; i++) 
     { 
-      let day = new Date(fisrtDayOfMonth.getTime() + (i * oneDay));
+      let day = new Date(fisrtDayOfMonth.getTime() + (i * oneDay) + twelveHours);
       days.push(this._dayObject(day));
     }
                       
@@ -205,7 +205,7 @@ export default Ember.Component.extend({
     let lastWeekday = lastDayOfMonth.getDay();
     //for (let i = 1; i <= (7 - lastWeekday); i++) {
     for (let i = 1; i <= (6 - lastWeekday); i++) {
-      let day = new Date(lastDayOfMonth.getTime() + (i * oneDay));
+      let day = new Date(lastDayOfMonth.getTime() + (i * oneDay) + twelveHours);
       days.push(this._dayObject(day));
       //days.push(null);
     }
