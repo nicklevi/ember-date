@@ -344,14 +344,15 @@ define('ember-date/components/date-picker-month', ['exports', 'ember', '../templ
 
     _dayIsToday: function _dayIsToday(date) {
       var today = get(this, 'today');
-      if (date.getTime() === today.getTime()) return true;
+      var selectedDates = get(this, 'selectedDates');
+      if ((!selectedDates || !selectedDates.length) && date.getDate() === today.getDate()) return true;
       return false;
     },
 
     _dayIsSelected: function _dayIsSelected(date) {
       var selectedDates = get(this, 'selectedDates');
       for (var i = 0; i < selectedDates.length; i++) {
-        if (selectedDates[i].getTime() == date.getTime()) return true;
+        if (selectedDates[i].getDate() == date.getDate()) return true;
       }
       return false;
     },
