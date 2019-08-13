@@ -350,19 +350,17 @@ export default Ember.Component.extend({
     }
   },
 
-  _dayIsToday(date) {
-    let today = get(this, 'today');
-    if(date.getTime() === today.getTime())
-      return true;
+  _dayIsToday: function _dayIsToday(date) {
+    var today = get(this, 'today');
+    var selectedDates = get(this, 'selectedDates');
+    if ( (!selectedDates || !selectedDates.length) && date.getDate() === today.getDate()) return true;
     return false;
   },
 
-  _dayIsSelected(date) {
-    let selectedDates = get(this, 'selectedDates');
-    for(var i = 0; i < selectedDates.length; i++)
-    {
-      if(selectedDates[i].getTime() == date.getTime())
-        return true;
+  _dayIsSelected: function _dayIsSelected(date) {
+    var selectedDates = get(this, 'selectedDates');
+    for (var i = 0; i < selectedDates.length; i++) {
+      if (selectedDates[i].getDate() == date.getDate()) return true;
     }
     return false;
   },
