@@ -349,18 +349,21 @@ export default Ember.Component.extend({
       return dayVal < selectedUntilVal && dayVal > selectedDateVal;
     }
   },
-
+  
+  _convertToDateFormat: function _convertToDateFormat(date) {
+    return date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate();
+  },
   _dayIsToday: function _dayIsToday(date) {
     var today = get(this, 'today');
     var selectedDates = get(this, 'selectedDates');
-    if ( (!selectedDates || !selectedDates.length) && date.getDate() === today.getDate()) return true;
+    if ((!selectedDates || !selectedDates.length) && this._convertToDateFormat(date) === this._convertToDateFormat(today) ) return true;
     return false;
   },
 
   _dayIsSelected: function _dayIsSelected(date) {
     var selectedDates = get(this, 'selectedDates');
     for (var i = 0; i < selectedDates.length; i++) {
-      if (selectedDates[i].getDate() == date.getDate()) return true;
+      if (this._convertToDateFormat(selectedDates[i]) == this._convertToDateFormat(date)) return true;
     }
     return false;
   },
