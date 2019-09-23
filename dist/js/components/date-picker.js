@@ -220,6 +220,17 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
     weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 
     months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    fromYear: new Date().getFullYear(),
+    toYear: new Date().getFullYear(),
+    years: computed('fromYear', 'toYear', function () {
+      var fromYear = get(this, 'toYearfromYear');
+      var toYear = get(this, 'toYear');
+      var years = [];
+      for (var i = fromYear; i <= toYear; i++) {
+        years.pushObject({ id: i, name: i });
+      }
+      return years;
+    }),
 
     pad: function pad(val) {
       if ((val + '').length < 2) return '0' + val;
@@ -939,7 +950,14 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
     // ACTIONS BEGIN ----------------------------------------
 
     actions: {
-
+      selectYear: function selectYear(year) {
+        var currentMonth = get(this, 'currentMonth');
+        set(this, 'currentMonth', new Date(year, currentMonth.getMonth(), 1, 0));
+      },
+      selectMonth: function selectMonth(month) {
+        var currentMonth = get(this, 'currentMonth');
+        set(this, 'currentMonth', new Date(currentMonth.getFullYear(), month + 1, 1, 0));
+      },
       clearDate: function clearDate() {
         set(this, '_dates', _ember['default'].A());
         set(this, 'isToStep', false);

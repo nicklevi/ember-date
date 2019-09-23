@@ -20,6 +20,21 @@
 
         <div class="title">{{titleText}}</div>
 
+        <div class="selectBoxes">
+
+          <select id="years">
+            {{#each years as |year|}}
+              <option value="{{year.id}}" {{action 'selectYear' year.id}}>{{year.name}}</option>
+            {{/each}}
+          </select>
+
+          <select id="months">
+            {{#each months as |month|}}
+              <option value="{{month}}" {{action 'selectMonth' month}}>{{month}}</option>
+            {{/each}}
+          </select>
+
+        </div>
       </header>
 
       {{date-picker-month

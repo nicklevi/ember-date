@@ -252,6 +252,17 @@ export default Ember.Component.extend({
     'November',
     'December',
   ],
+  fromYear:new Date().getFullYear(),
+  toYear:new Date().getFullYear(),
+  years: computed('fromYear', 'toYear', function() {
+    let fromYear  = get(this, 'toYearfromYear');
+    let toYear    = get(this, 'toYear');
+    let years     = [];
+    for (var i = fromYear; i <= toYear; i++) {
+      years.pushObject({id:i,name:i});
+    }
+    return years;
+  }),
 
   pad(val) {
     if((val + '').length < 2)
@@ -980,7 +991,14 @@ export default Ember.Component.extend({
   // ACTIONS BEGIN ----------------------------------------
 
   actions: {
-
+    selectYear(year) {
+      let currentMonth = get(this, 'currentMonth');
+      set(this, 'currentMonth', new Date(year, currentMonth.getMonth(), 1, 0));
+    },
+    selectMonth(month) {
+      let currentMonth = get(this, 'currentMonth');
+      set(this, 'currentMonth', new Date(currentMonth.getFullYear(), (month+1), 1, 0));
+    },
     clearDate() {
       set(this, '_dates', Ember.A());
       set(this, 'isToStep', false);
