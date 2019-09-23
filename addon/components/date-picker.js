@@ -254,14 +254,18 @@ export default Ember.Component.extend({
   ],
   fromYear:new Date().getFullYear(),
   toYear:new Date().getFullYear(),
-  years: computed('fromYear', 'toYear', function() {
-    let fromYear  = get(this, 'toYearfromYear');
+  yearsCompiledOptions: computed('fromYear', 'toYear','currentMonth', function() {
+    let fromYear  = get(this, 'fromYear');
     let toYear    = get(this, 'toYear');
-    let years     = [];
+    let currentMonth = get(this, 'currentMonth');
+    let currentYear  = currentMonth.getFullYear();
+    let output = "";
+    let isSelected = false;
     for (var i = fromYear; i <= toYear; i++) {
-      years.pushObject({id:i,name:i});
+      isSelected = i==currentYear ? 'selected':'';
+      output = output+'<option value="'+i+'" ' + isSelected + '{{action "selectYear" '+i+'}} >' + i + '</option>';
     }
-    return years;
+    return new Ember.Handlebars.SafeString(output);
   }),
 
   pad(val) {
@@ -991,13 +995,14 @@ export default Ember.Component.extend({
   // ACTIONS BEGIN ----------------------------------------
 
   actions: {
-    selectYear(year) {
-      let currentMonth = get(this, 'currentMonth');
+    selectYear: function selectYear(year) {
+      var currentMonth = get(this, 'currentMonth');
       set(this, 'currentMonth', new Date(year, currentMonth.getMonth(), 1, 0));
     },
-    selectMonth(month) {
-      let currentMonth = get(this, 'currentMonth');
-      set(this, 'currentMonth', new Date(currentMonth.getFullYear(), (month+1), 1, 0));
+    selectMonth: function selectMonth(month) {
+      var currentMonth = get(this, 'currentMonth');
+      var months = get(this, 'months');
+      set(this, 'currentMonth', new Date(currentMonth.getFullYear(), months.indexOf(month), 1, 0));
     },
     clearDate() {
       set(this, '_dates', Ember.A());
