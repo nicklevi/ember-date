@@ -261,7 +261,7 @@ export default Ember.Component.extend({
     let currentYear  = currentMonth.getFullYear();
     let years     = [];
     for (var i = fromYear; i <= toYear; i++) {
-      years.pushObject({id:i,name:i,selected:currentYear==i ? 'selected':''});
+      years.pushObject({id:i,name:i,selected:currentYear==i});
     }
     return years;
   }),

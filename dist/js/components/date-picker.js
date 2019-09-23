@@ -229,7 +229,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       var currentYear = currentMonth.getFullYear();
       var years = [];
       for (var i = fromYear; i <= toYear; i++) {
-        years.pushObject({ id: i, name: i, selected: currentYear == i ? 'selected' : '' });
+        years.pushObject({ id: i, name: i, selected: currentYear == i });
       }
       return years;
     }),
