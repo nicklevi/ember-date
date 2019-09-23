@@ -23,7 +23,9 @@
         <div class="selectBoxes">
 
           <select id="years">
-            {{yearsCompiledOptions}} 
+            {{#each years as |year|}}
+              <option {{year.selected}} value="{{year.id}}" {{action 'selectYear' year.id}}>{{year.name}}</option>
+            {{/each}}
           </select>
 
           <select id="months">

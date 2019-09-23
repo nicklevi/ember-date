@@ -254,18 +254,16 @@ export default Ember.Component.extend({
   ],
   fromYear:new Date().getFullYear(),
   toYear:new Date().getFullYear(),
-  yearsCompiledOptions: computed('fromYear', 'toYear','currentMonth', function() {
+  years: computed('fromYear', 'toYear','currentMonth', function() {
     let fromYear  = get(this, 'fromYear');
     let toYear    = get(this, 'toYear');
     let currentMonth = get(this, 'currentMonth');
     let currentYear  = currentMonth.getFullYear();
-    let output = "";
-    let isSelected = false;
+    let years     = [];
     for (var i = fromYear; i <= toYear; i++) {
-      isSelected = i==currentYear ? 'selected':'';
-      output = output+'<option value="'+i+'" ' + isSelected + '{{action "selectYear" '+i+'}} >' + i + '</option>';
+      years.pushObject({id:i,name:i,selected:currentYear==i ? 'selected':''});
     }
-    return new Ember.Handlebars.SafeString(output);
+    return years;
   }),
 
   pad(val) {
