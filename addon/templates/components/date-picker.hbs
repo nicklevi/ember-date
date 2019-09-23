@@ -24,13 +24,23 @@
 
           <select id="years">
             {{#each years as |year|}}
-              <option {{{year.selected}}} value="{{year.id}}" {{action 'selectYear' year.id}}>{{year.name}}</option>
+              {{#if year.selected}}
+                <option selected value="{{year.id}}" {{action 'selectYear' year.id}}>{{year.name}}</option>
+              {{else}}
+                <option value="{{year.id}}" {{action 'selectYear' year.id}}>{{year.name}}</option>
+              {{/if}}
+              
             {{/each}}
           </select>
 
           <select id="months">
-            {{#each months as |month|}}
-              <option value="{{month}}" {{action 'selectMonth' month}}>{{month}}</option>
+            {{#each monthsList as |month|}}
+              {{#if month.selected}}
+                <option selected value="{{month.id}}" {{action 'selectMonth' month.id}}>{{month.name}}</option>
+              {{else}}
+                <option value="{{month.id}}" {{action 'selectMonth' month.id}}>{{month.name}}</option>
+              {{/if}}
+              
             {{/each}}
           </select>
 

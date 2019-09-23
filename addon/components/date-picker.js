@@ -254,16 +254,26 @@ export default Ember.Component.extend({
   ],
   fromYear:new Date().getFullYear(),
   toYear:new Date().getFullYear(),
-  years: computed('fromYear', 'toYear','currentMonth', function() {
+  years: computed('fromYear', 'toYear', function() {
     let fromYear  = get(this, 'fromYear');
     let toYear    = get(this, 'toYear');
     let currentMonth = get(this, 'currentMonth');
     let currentYear  = currentMonth.getFullYear();
     let years     = [];
     for (var i = fromYear; i <= toYear; i++) {
-      years.pushObject({id:i,name:i,selected:currentYear==i ? 'selected':''});
+      years.pushObject({id:i,name:i,selected:currentYear==i});
     }
     return years;
+  }),
+  monthsList: computed('months', function() {
+    let months  = get(this, 'months');
+    let currentMonth = get(this, 'currentMonth');
+    currentMonth = currentMonth.getMonth();
+    let monthsList = [];
+    for (var i = 0; i < months.length; i++) {
+      monthsList.pushObject({id:i,name:months[i],selected:currentMonth==i});
+    }
+    return monthsList;
   }),
 
   pad(val) {

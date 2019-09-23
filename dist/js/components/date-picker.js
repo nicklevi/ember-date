@@ -222,16 +222,26 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
     months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     fromYear: new Date().getFullYear(),
     toYear: new Date().getFullYear(),
-    years: computed('fromYear', 'toYear', 'currentMonth', function () {
+    years: computed('fromYear', 'toYear', function () {
       var fromYear = get(this, 'fromYear');
       var toYear = get(this, 'toYear');
       var currentMonth = get(this, 'currentMonth');
       var currentYear = currentMonth.getFullYear();
       var years = [];
       for (var i = fromYear; i <= toYear; i++) {
-        years.pushObject({ id: i, name: i, selected: currentYear == i ? 'selected' : '' });
+        years.pushObject({ id: i, name: i, selected: currentYear == i });
       }
       return years;
+    }),
+    monthsList: computed('months', function () {
+      var months = get(this, 'months');
+      var currentMonth = get(this, 'currentMonth');
+      currentMonth = currentMonth.getMonth();
+      var monthsList = [];
+      for (var i = 0; i < months.length; i++) {
+        monthsList.pushObject({ id: i, name: months[i], selected: currentMonth == i });
+      }
+      return monthsList;
     }),
 
     pad: function pad(val) {
