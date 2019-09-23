@@ -23,7 +23,7 @@
         <div class="selectBoxes">
 
           <select id="years">
-            {{#each years as |year|}}
+            {{#each yearsList as |year|}}
               {{#if year.selected}}
                 <option selected value="{{year.id}}" {{action 'selectYear' year.id}}>{{year.name}}</option>
               {{else}}

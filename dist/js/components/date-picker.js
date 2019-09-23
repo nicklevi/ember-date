@@ -222,28 +222,8 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
     months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     fromYear: new Date().getFullYear(),
     toYear: new Date().getFullYear(),
-    years: computed('fromYear', 'toYear', function () {
-      var fromYear = get(this, 'fromYear');
-      var toYear = get(this, 'toYear');
-      var currentMonth = get(this, 'currentMonth');
-      var currentYear = currentMonth.getFullYear();
-      var years = [];
-      for (var i = fromYear; i <= toYear; i++) {
-        years.pushObject({ id: i, name: i, selected: currentYear == i });
-      }
-      return years;
-    }),
-    monthsList: computed('months', function () {
-      var months = get(this, 'months');
-      var currentMonth = get(this, 'currentMonth');
-      currentMonth = currentMonth.getMonth();
-      var monthsList = [];
-      for (var i = 0; i < months.length; i++) {
-        monthsList.pushObject({ id: i, name: months[i], selected: currentMonth == i });
-      }
-      return monthsList;
-    }),
-
+    yearsList: [],
+    monthsList: [],
     pad: function pad(val) {
       if ((val + '').length < 2) return '0' + val;
       return '' + val;
@@ -752,6 +732,24 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       } else {
         set(this, 'translateX', Em.String.htmlSafe(''));
       }
+
+      var fromYear = get(this, 'fromYear');
+      var toYear = get(this, 'toYear');
+      var currentMonth = get(this, 'currentMonth');
+      var currentYear = currentMonth.getFullYear();
+      var years = [];
+      for (var i = fromYear; i <= toYear; i++) {
+        years.pushObject({ id: i, name: i, selected: currentYear == i });
+      }
+      set(this, 'yearsList', years);
+
+      var months = get(this, 'months');
+      currentMonth = currentMonth.getMonth();
+      var monthsList = [];
+      for (var i = 0; i < months.length; i++) {
+        monthsList.pushObject({ id: i, name: months[i], selected: currentMonth == i });
+      }
+      set(this, 'monthsList', monthsList);
     },
 
     /**
@@ -968,8 +966,7 @@ define('ember-date/components/date-picker', ['exports', 'ember', '../templates/c
       },
       selectMonth: function selectMonth(month) {
         var currentMonth = get(this, 'currentMonth');
-        var months = get(this, 'months');
-        set(this, 'currentMonth', new Date(currentMonth.getFullYear(), months.indexOf(month), 1, 0));
+        set(this, 'currentMonth', new Date(currentMonth.getFullYear(), month, 1, 0));
       },
       clearDate: function clearDate() {
         set(this, '_dates', _ember['default'].A());
