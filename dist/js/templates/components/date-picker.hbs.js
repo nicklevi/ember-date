@@ -96,7 +96,7 @@ define("ember-date/templates/components/date-picker", ["exports", "ember"], func
             morphs[3] = dom.createMorphAt(element4, 0, 0);
             return morphs;
           },
-          statements: [["attribute", "value", ["concat", [["get", "year.id", ["loc", [null, [27, 66], [27, 73]]]]]]], ["element", "if", [["get", "year.selected", ["loc", [null, [27, 27], [27, 40]]]], "selected", ""], [], ["loc", [null, [27, 22], [27, 56]]]], ["element", "action", ["selectYear", ["get", "year.id", ["loc", [null, [27, 99], [27, 106]]]]], [], ["loc", [null, [27, 77], [27, 108]]]], ["content", "year.name", ["loc", [null, [27, 109], [27, 122]]]]],
+          statements: [["attribute", "value", ["concat", [["get", "year.id", ["loc", [null, [27, 51], [27, 58]]]]]]], ["element", "year.selected", [], [], ["loc", [null, [27, 22], [27, 41]]]], ["element", "action", ["selectYear", ["get", "year.id", ["loc", [null, [27, 84], [27, 91]]]]], [], ["loc", [null, [27, 62], [27, 93]]]], ["content", "year.name", ["loc", [null, [27, 94], [27, 107]]]]],
           locals: ["year"],
           templates: []
         };

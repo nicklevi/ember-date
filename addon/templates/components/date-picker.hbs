@@ -24,7 +24,7 @@
 
           <select id="years">
             {{#each years as |year|}}
-              <option {{if year.selected 'selected' ''}} value="{{year.id}}" {{action 'selectYear' year.id}}>{{year.name}}</option>
+              <option {{{year.selected}}} value="{{year.id}}" {{action 'selectYear' year.id}}>{{year.name}}</option>
             {{/each}}
           </select>
 
